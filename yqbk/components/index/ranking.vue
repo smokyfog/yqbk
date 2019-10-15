@@ -1,0 +1,171 @@
+<template>
+  <div class="rankings_box">
+    <div class="rank_left">
+      <div class="img_box">
+        <img src="http://jxhx2.yangqq.com/skin/jxhx/images/4.jpg" alt="">
+      </div>
+      <div class="img_box">
+        <img src="http://jxhx2.yangqq.com/skin/jxhx/images/2.jpg" alt="">
+      </div>
+    </div>
+    <div class="rank_right">
+      <el-collapse v-model="activeName" accordion>
+        <el-collapse-item 
+          v-for="(item, idx) in rankingList" 
+          :key="item.id + new Date().getTime()" 
+          :name="item.id"
+          >
+          <template slot="title" >
+            <div 
+              class="rank_title"
+              @click="goToLink(item.url)"
+              @mouseenter="changeactive(item.id)"
+              >
+                <span class="rank_idx">{{idx + 1}}</span>
+                {{ item.title }}
+              </div> 
+          </template>
+          <div @click="changeactive(item.id)" class="desc_box" :title="item.desc">{{ item.desc }}</div>
+        </el-collapse-item>
+      </el-collapse>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      activeName: 1,
+      rankingList: [
+        {
+          id: 1,
+          title: '一致性 Consistency',
+          url: 'https://github.com/smokyfog',
+          desc: '与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。'
+        },
+        {
+          id: 2,
+          title: '反馈 Feedback',
+          url: 'https://github.com/smokyfog',
+          desc: '控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。'
+        },
+        {
+          id: 3,
+          title: '效率 Efficiency',
+          url: 'https://github.com/smokyfog',
+          desc: '简化流程：设计简洁直观的操作流程；清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策'
+        },
+        {
+          id: 4,
+          title: '可控 Controllability',
+          url: 'https://github.com/smokyfog',
+          desc: '与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。'
+        },
+        {
+          id: 5,
+          title: '一致性 Consistency',
+          url: 'https://github.com/smokyfog',
+          desc: '与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。'
+        },
+      ]
+    }
+  },
+  methods: {
+    // 改变选中地
+    changeactive(name) {
+      this.activeName = name
+      console.log(name)
+    },
+    // 链接跳转
+    goToLink(url) {
+      // this.$router.push({path:'路径'})
+      location.href = url
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.rankings_box {
+  height: 100%;
+  display: flex;
+  & > div {
+    height: 100%;
+  }
+  .rank_left {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+    // grid-row-gap: 20px;
+    // grid-column-gap: 20px;
+    justify-items: center;
+    align-items: center;
+    width: 35%;
+    .img_box {
+      height: calc(100% - 20px) ;
+      padding: 10px 15px;
+      img {
+        text-align: center;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .rank_right {
+    width: calc(65% - 20px) ;
+    height: calc(100% - 20px);
+    padding: 10px;
+    .rank_title {
+      width: 100%;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    .rank_idx {
+      color: #fff;
+      background: #ccc;
+      display: inline-block;
+      line-height: 23px;
+      height: 23px;
+      width: 20px;
+      margin-right: 20px;
+      margin-left: 20px;
+      text-align: center;
+    }
+    .el-collapse {
+      border-top: 0;
+    }
+    .el-collapse-item__header {
+      height: 40px;
+      border-bottom: 0;
+    }
+    .el-collapse-item__content {
+      padding-bottom: 10px;
+    }
+    .el-collapse-item.is-active {
+      .rank_idx {
+        background: rgb(94, 94, 94);
+      }
+      background: #f7f7f7;
+      .el-collapse-item__header {
+        background: #f7f7f7;
+      }
+      .el-collapse-item__wrap {
+        background: #f7f7f7;
+      }
+    }
+    .desc_box {
+      margin-left: 20px;
+      text-overflow: -o-ellipsis-lastline;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+}
+</style>

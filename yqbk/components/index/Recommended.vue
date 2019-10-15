@@ -2,14 +2,14 @@
   <div id="recommended">
     <div class="clearfix header">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="最热排行" name="first">
-          最热排行
+        <el-tab-pane class="rank_content" label="最热排行" name="first">
+          <Ranking />
         </el-tab-pane>
-        <el-tab-pane label="最新排行" name="second">
-          最新排行
+        <el-tab-pane class="rank_content" label="最新排行" name="second">
+          <Ranking />
         </el-tab-pane>
-        <el-tab-pane label="最多评论" name="third">
-          最多评论
+        <el-tab-pane class="rank_content" label="最多评论" name="third">
+          <Ranking />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -17,11 +17,16 @@
 </template>
  
  <script>
+import Ranking from "./ranking.vue"
+
 export default {
   data() {
     return {
       activeName: 'first'
     }
+  },
+  components: {
+    Ranking
   },
   methods: {
     handleClick() {
@@ -45,10 +50,13 @@ export default {
       box-sizing: border-box;
      }
      .el-tabs__content {
-       height: 300px;
+       height: 280px;
      }
      .el-tabs__nav-wrap::after {
       height: 0px
+    }
+    .rank_content {
+      height: 100%;
     }
    }
    .el-card.is-always-shadow, .el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover {

@@ -38,11 +38,15 @@ export default {
  
  <style lang="scss">
  #recommended {
+   margin-bottom: 10px;
    .header {
       border: 1px solid #EBEEF5;
       background-color: #FFF;
       color: #303133;
       transition: .3s;
+      .el-tabs__header {
+        margin-bottom: 5px;
+      }
      .el-tabs__nav-wrap {
       padding: 0 8px;
       background: #F7F7F7;

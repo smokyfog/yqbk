@@ -22,6 +22,7 @@ export default {
 
 <style lang="scss">
   @import './reset.css';
+  @import 'font-awesome/css/font-awesome.min.css';
   html, body {
     background: #f4f4f4;
   }

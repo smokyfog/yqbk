@@ -25,7 +25,12 @@
                 {{ item.title }}
               </div> 
           </template>
-          <div @click="changeactive(item.id)" class="desc_box" :title="item.desc">{{ item.desc }}</div>
+          <div 
+            @click="changeactive(item.id)" 
+            class="desc_box" 
+            :title="item.desc"
+          >{{ item.desc }}
+          </div>
         </el-collapse-item>
       </el-collapse>
     </div>
@@ -75,7 +80,6 @@ export default {
     // 改变选中地
     changeactive(name) {
       this.activeName = name
-      console.log(name)
     },
     // 链接跳转
     goToLink(url) {
@@ -101,7 +105,7 @@ export default {
     // grid-column-gap: 20px;
     justify-items: center;
     align-items: center;
-    width: 35%;
+    width: 30%;
     .img_box {
       height: calc(100% - 20px) ;
       padding: 10px 15px;
@@ -113,7 +117,7 @@ export default {
     }
   }
   .rank_right {
-    width: calc(65% - 20px) ;
+    width: calc(70% - 20px) ;
     height: calc(100% - 20px);
     padding: 10px;
     .rank_title {

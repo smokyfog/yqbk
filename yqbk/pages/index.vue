@@ -13,14 +13,14 @@
       <el-col :span="18">
         <div class="container_left">
           <Hot />
-          <Recom />
+          <!-- <Recom /> -->
           <Article />
         </div>
       </el-col>
       <el-col :span="6">
         <div class="container_right">
           <my-card />
-          <Link />
+          <side-list />
           <Link />
         </div>
       </el-col>
@@ -34,6 +34,7 @@ import Article from '~/components/index/articleList.vue'
 import Link from '~/components/index/friendlyLink.vue'
 import Recom from '~/components/index/Recommended.vue'
 import myCard from '~/components/index/myCard.vue'
+import sideList from '~/components/index/sideList.vue'
 
 export default {
   data() {
@@ -59,7 +60,8 @@ export default {
     Link,
     Recom,
     Article,
-    myCard
+    myCard,
+    sideList
   }
 }
 </script>

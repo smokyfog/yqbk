@@ -6,7 +6,7 @@
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="text mycard">
-        <p>网名： smokyfog</p>
+        <p>网名： smokyfog | 忱</p>
         <p>职业： web前端工程师</p>
         <p>现居： 北京市-顺义区</p>
         <p>Email： yanqiang_main@163.com</p>
@@ -14,22 +14,22 @@
           <ul class="contact_box">
             <li>
               <a href="">
-                <span class="fa fa"></span>
+                <span class="iconfont iconfl-jia"></span>
               </a>
             </li>
             <li>
               <a href="">
-                <span class="fa fa"></span>
+                <span class="iconfont iconqq"></span>
               </a>
             </li>
             <li>
               <a href="">
-                <span class="fa fa"></span>
+                <span class="iconfont iconweixin5"></span>
               </a>
             </li>
             <li>
               <a href="">
-                <span class="fa fa"></span>
+                <span class="iconfont iconweibo2"></span>
               </a>
             </li>
           </ul>
@@ -61,28 +61,65 @@ export default {
         padding: 10px;
       }
       .mycard {
+        margin-top: 5px;
         p {
           font-size: 14px;
-          padding: 4px 5px;
+          padding: 8px 5px;
           color: rgb(58, 58, 58);
         }
         .contact {
-          height: 65px;
-          margin-top: 5px;
+          padding: 0 20px 0 0;
+          height: 60px;
+          // margin-top: 5px;
         }
         .contact_box {
           display: grid;
-          height: 65px ;
+          height: 60px ;
           grid-template-columns: repeat(4, 25%);
           grid-template-rows: 100%;
           li {
-            padding: 5px;
+            padding: 8px;
             a {
-              display: inline-block;
-              border: 1px solid #aaa;
+              display: flex;
+              font-size: 30px;
+              justify-content: center;
+              align-items: center;
+              border: 1px solid #f7f7f7;
+              box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.1), inset 0.1px 0px 0px rgba(0, 0, 0, 0.7);
               border-radius: 50%;
               height: 100%;
-              width: 100%
+              width: 100%;
+              span {
+                font-size: 30px;
+              }
+            }
+          }
+          & :nth-child(1) {
+            a{
+              span {
+                color: #f78989;
+              }
+            }
+          }
+          & :nth-child(2) {
+            a{
+              span {
+                color: skyblue;
+              }
+            }
+          }
+          & :nth-child(3) {
+            a{
+              span {
+                color: #67c23a;
+              }
+            }
+          }
+          & :nth-child(4) {
+            a{
+              span {
+                color: #ffd36e;
+              }
             }
           }
         }

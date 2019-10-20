@@ -3,7 +3,7 @@
     <el-row id="container_main" :gutter="20">
       <el-col :span="18">
         <div class="container_left">
-          <Me />
+          <Blog />
         </div>
       </el-col>
       <el-col :span="6">
@@ -19,7 +19,7 @@
 
 <script>
 import Hot from '~/components/index/hotRecommended.vue'
-import Me from '~/components/about/me.vue'
+import Blog from '~/components/about/blog.vue'
 import Link from '~/components/index/friendlyLink.vue'
 import Recom from '~/components/index/Recommended.vue'
 import myCard from '~/components/index/myCard.vue'
@@ -48,7 +48,7 @@ export default {
     Hot,
     Link,
     Recom,
-    Me,
+    Blog,
     myCard,
     sideList
   }

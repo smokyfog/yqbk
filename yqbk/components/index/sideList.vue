@@ -134,7 +134,7 @@ export default {
       margin-bottom: 10px;
       .el-card__header {
         padding: 12px 8px;
-        background:#F7F7F7;
+        // background:#F7F7F7;
       }
       .el-card__body {
         padding: 10px;

@@ -6,7 +6,7 @@
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="item_box">
-        <div v-for="item in article_list"  :key="item.create_time" class="article_box" >
+        <div v-for="item in article_list"  :key="item.create_time + new Date().getTime()" class="article_box" >
           <div class="article_img_box">
             <img :src="item.image" :alt="item.image">
           </div>
@@ -81,7 +81,7 @@ export default {
           desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
           owner: '闫强',
           field: '技术 前端开发 js',
-          create_time: '2019-10-16',
+          create_time: '2019-10-6',
           viewed: 999,
           image: 'http://www.zbboke.com/uploads/170930/1-1F93009532O46.jpg',
           url: 'https://github.com/smokyfog'
@@ -91,7 +91,7 @@ export default {
           desc: `重点要注意：dede:fieldname='imgurls'不能二次使用，如果二次使用会自动使用下面的样式，所以大家一定要注意这一点...`,
           owner: '闫强',
           field: '技术 前端开发 js',
-          create_time: '2019-10-15',
+          create_time: '2019-10-5',
           viewed: 999,
           image: 'http://www.zbboke.com/uploads/161221/1-16122115113S14.jpg',
           url: 'https://github.com/smokyfog'
@@ -101,7 +101,7 @@ export default {
           desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
           owner: '闫强',
           field: '技术 前端开发 js',
-          create_time: '2019-10-14',
+          create_time: '2019-10-4',
           viewed: 999,
           image: 'http://www.zbboke.com/uploads/allimg/180626/1-1P626192T9222-lp.png',
           url: 'https://github.com/smokyfog'
@@ -111,7 +111,7 @@ export default {
           desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
           owner: '闫强',
           field: '技术 前端开发 js',
-          create_time: '2019-10-16',
+          create_time: '2019-10-26',
           viewed: 999,
           image: 'http://www.zbboke.com/uploads/170930/1-1F93009532O46.jpg',
           url: 'https://github.com/smokyfog'
@@ -121,7 +121,7 @@ export default {
           desc: `重点要注意：dede:fieldname='imgurls'不能二次使用，如果二次使用会自动使用下面的样式，所以大家一定要注意这一点...`,
           owner: '闫强',
           field: '技术 前端开发 js',
-          create_time: '2019-10-15',
+          create_time: '2019-10-25',
           viewed: 999,
           image: 'http://www.zbboke.com/uploads/161221/1-16122115113S14.jpg',
           url: 'https://github.com/smokyfog'
@@ -131,7 +131,7 @@ export default {
           desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
           owner: '闫强',
           field: '技术 前端开发 js',
-          create_time: '2019-10-14',
+          create_time: '2019-10-24',
           viewed: 999,
           image: 'http://www.zbboke.com/uploads/allimg/180626/1-1P626192T9222-lp.png',
           url: 'https://github.com/smokyfog'
@@ -148,13 +148,22 @@ export default {
       margin-bottom: 10px;
       .el-card__header {
         padding: 8px;
-        background:#F7F7F7;
+        // background:#F7F7F7;
       }
       .el-card__body {
         padding: 0;
       }
       .item_box {
         min-height: 300px;
+        .article_box:hover {
+          transition: all 0.5s;
+          background-color: #f7f7f7;
+        }
+        .article_box:hover img{
+          transition: all 0.9s;
+          opacity: .9;
+          transform: scale(1.1);
+        }
         .article_box {
           padding: 12px 0;
           height: 180px;
@@ -163,11 +172,19 @@ export default {
           grid-template-rows: 100%;
           border-bottom: 1px solid #efefef;
           .article_img_box {
-            padding: 20px;
+            position: relative;
+            margin: 20px;
+            overflow: hidden;
             img {
-              height: 100%;
               width: 100%;
+              height: 100%;
+              opacity: 0.9;
             }
+            // &:hover img {
+            //   transition: all 0.5s;
+            //   opacity: .9;
+            //   transform: scale(1.1);
+            // }
           }
           .article_info_box {
             padding: 20px 0;

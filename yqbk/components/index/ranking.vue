@@ -106,13 +106,39 @@ export default {
     justify-items: center;
     align-items: center;
     width: 30%;
+    // .img_box {
+    //   height: calc(100% - 20px) ;
+    //   padding: 10px 15px;
+    //   img {
+    //     text-align: center;
+    //     width: 100%;
+    //     height: 100%;
+    //   }
+    // }
     .img_box {
+      position: relative;
       height: calc(100% - 20px) ;
-      padding: 10px 15px;
-      img {
+      margin: 10px 15px;
+      border-radius: 5px;
+      overflow: hidden;
+      .titles {
+        position: absolute;
+        color: #fff;
+        width: 220px;
         text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+      }
+      img {
         width: 100%;
         height: 100%;
+        opacity: 0.88;
+      }
+      &:hover img {
+        transition: all 0.5s;
+        opacity: .9;
+        transform: scale(1.1);
       }
     }
   }

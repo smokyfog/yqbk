@@ -1,25 +1,13 @@
 <template>
   <div class="container">
-    <div id="banner_box">
-      <el-carousel :interval="5000" arrow="always">
-        <el-carousel-item v-for="item in banner" :key="item.name + new Date().getTime() + item.url">
-          <h3>
-            <img :src="item.url" alt="">
-          </h3>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
     <el-row id="container_main" :gutter="20">
       <el-col :span="18">
         <div class="container_left">
-          <Hot />
-          <Recom />
           <Article />
         </div>
       </el-col>
       <el-col :span="6">
         <div class="container_right">
-          <my-card />
           <side-list />
           <Link />
         </div>

@@ -73,7 +73,7 @@ export default {
       margin-bottom: 10px;
       .el-card__header {
         padding: 8px;
-        background:#F7F7F7;
+        // background:#F7F7F7;
       }
       .el-card__body {
         padding: 0;
@@ -83,15 +83,18 @@ export default {
         box-sizing: border-box;
         display: flex;
         flex-wrap: wrap;
+        .item:hover {
+          background-color: #f7f7f7;
+        }
         .item {
-          width: calc(50% - 11px);
+          width: calc(50%);
           padding: 5px;
           height: 100px;
           display: inline-block;
           background: #fff;
           .item_left {
             float: left;
-            height: calc(100% - 20px) ;
+            height: calc(100%) ;
             padding: 10px;
             display: flex;
             justify-content: center;

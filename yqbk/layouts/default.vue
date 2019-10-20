@@ -1,5 +1,7 @@
 <template>
-  <div class="">
+  <div id="container_box">
+    <BackTop></BackTop>
+    <div id="go_to_top_rule"></div>
     <Header />
     <div id="container">
       <nuxt />
@@ -15,6 +17,11 @@ import '~/static/css/element-variables.scss'
 import '~/static/font/iconfont.css'
 // import '//at.alicdn.com/t/font_1464229_um8p8tbuup.css'
 export default {
+  data() {
+    return {
+      
+    }
+  },
   components: {
     Header,
     Footer
@@ -26,11 +33,14 @@ export default {
   @import '~/static/css/reset.css';
   @import 'font-awesome/css/font-awesome.min.css';
   html, body {
-    background: #f4f4f4;
+    background-color: #f4f4f4 !important;
   }
   #container {
     width: 1200px;
     margin: auto;
     margin-top: 65px;
+  }
+  .el-card__header {
+    // background:#F7F7F7;
   }
 </style>

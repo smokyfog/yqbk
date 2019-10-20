@@ -49,7 +49,7 @@ export default {
       }
      .el-tabs__nav-wrap {
       padding: 0 8px;
-      background: #F7F7F7;
+      // background: #F7F7F7;
       // border-bottom: 1px solid #EBEEF5;
       box-sizing: border-box;
      }

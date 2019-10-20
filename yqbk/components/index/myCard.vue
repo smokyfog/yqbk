@@ -1,12 +1,12 @@
  <template>
-  <div id="friendlyLink">
+  <div id="my_card">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>我的名片</span>
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="text mycard">
-        <p>网名： smokyfog | 忱</p>
+        <p>网名： smokyfog</p>
         <p>职业： web前端工程师</p>
         <p>现居： 北京市-顺义区</p>
         <p>Email： yanqiang_main@163.com</p>
@@ -50,12 +50,12 @@ export default {
 </script>
  
  <style lang="scss">
- #friendlyLink {
+ #my_card {
     .box-card {
       margin-bottom: 10px;
       .el-card__header {
         padding: 12px 8px;
-        background:#F7F7F7;
+        // background:#F7F7F7;
       }
       .el-card__body {
         padding: 10px;

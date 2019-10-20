@@ -2,7 +2,9 @@
   <div id="header_warp">
     <div id="header_content">
       <div class="header_left">
-        闫强个人博客
+        <nuxt-link to="/">
+          闫强个人博客
+        </nuxt-link>
       </div>
       <div class="header_menu">
         <div id="menu_box">
@@ -15,23 +17,27 @@
             background-color="#fff"
             text-color="#3a3a3a"
             active-text-color="#e15782">
-            <el-menu-item index="1">首页</el-menu-item>
-            <el-submenu index="2">
-              <template slot="title">关于</template>
-              <el-menu-item index="2-1">关于我</el-menu-item>
-              <el-menu-item index="2-2">关于我的博客</el-menu-item>
-            </el-submenu>
-            <el-submenu index="3">
-              <template slot="title">成长</template>
-              <el-menu-item index="3-1">成长</el-menu-item>
-              <el-menu-item index="3-2">成长</el-menu-item>
-            </el-submenu>
+            <nuxt-link to="/">
+              <el-menu-item index="1">首页</el-menu-item>
+            </nuxt-link>
+            <nuxt-link to="/notes">
+              <el-menu-item index="2">笔记</el-menu-item>
+            </nuxt-link>
+            <nuxt-link to="/share">
+              <el-menu-item index="3">分享</el-menu-item>
+            </nuxt-link>
             <el-submenu index="4">
-              <template slot="title">学习</template>
-              <el-menu-item index="4-1">学习</el-menu-item>
-              <el-menu-item index="4-2">学习</el-menu-item>
+              <template slot="title">关于</template>
+              <nuxt-link to="/about-me">
+                <el-menu-item index="4-1">关于我</el-menu-item>
+              </nuxt-link>
+              <nuxt-link to="/about-blog">
+                <el-menu-item index="4-2">关于我的博客</el-menu-item>
+              </nuxt-link>
             </el-submenu>
-            <el-menu-item index="5">留言</el-menu-item>
+            <nuxt-link to="/message">
+              <el-menu-item index="5">留言</el-menu-item>
+            </nuxt-link>
           </el-menu>
         </div>
         <div id="search_box">
@@ -54,12 +60,38 @@ export default {
   data() {
     return {
       activeIndex: '1',
-      search_text: ''
+      search_text: '',
+      routeParams: this.$route.param
     }
+  },
+  created() {
+    this.handlers()
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
+    },
+    // 根据路由选中当前项
+    handlers(val, oldVal){
+      let name = this.$route.path.slice(1, (this.$route.path.length ))
+      const curr = name.split('?')[0].split('-')[0]
+      switch (curr) {
+        case 'index' : return this.activeIndex = '1';
+        case 'notes' : return this.activeIndex = '2';
+        case 'share' : return this.activeIndex = '3';
+        case 'about' : return this.activeIndex = '4';
+        case 'message' : return this.activeIndex = '5';
+        default : return this.activeIndex = '1';
+      }
+    },
+  },
+  watch: {
+    $route: {
+      handler: function(val, oldVal){
+        this.handlers(val, oldVal)
+      },
+      // 深度观察监听
+      deep: true
     }
   }
 }
@@ -88,15 +120,22 @@ export default {
       color: #3a3a3a;
     }
     .header_left {
-      width: 25%;
-      font-size: 24px;
-      font-family: cursive;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 15%;
+      a {
+        height: 100%;
+        color: #4a4a4a;
+        font-weight: 700;
+        line-height: 44px;
+        font-size: 26px;
+        font-family: cursive;
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+      }
+      
     }
     .header_menu {
-      width: 75%;
+      width: 85%;
       #menu_box {
         float: left;
         width: 70%;
@@ -125,7 +164,7 @@ export default {
         display: flex;
         justify-content: space-between;
       }
-      .el-menu--horizontal>.el-menu-item {
+      .el-menu-item {
         height: 50px;
         line-height: 50px;
       }

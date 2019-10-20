@@ -6,10 +6,16 @@
           Copyright © 2019
         </span> |
         <span>
-          Powered by <a href="" class="copyright-links" target="_blank" rel="nofollow">yq</a>
+          Powered by 
+          <a href="" class="copyright-links" target="_blank" rel="nofollow">
+            yq
+          </a>
         </span> |
         <span>
-            Theme by <a href="//github.com/smokyfog" class="copyright-links" target="_blank" rel="nofollow">smokyfog</a>
+            Theme by 
+            <a href="//github.com/smokyfog" class="copyright-links" target="_blank" rel="nofollow">
+              smokyfog
+            </a>
         </span>
       </div>
     </div>

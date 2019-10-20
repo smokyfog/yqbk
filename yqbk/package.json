@@ -15,12 +15,13 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "cross-env": "^5.2.0",
-    "element-ui": "^2.4.11",
+    "element-ui": "^2.12.0",
     "font-awesome": "^4.7.0",
     "koa": "^2.6.2",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "view-design": "^4.0.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

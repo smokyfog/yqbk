@@ -75,13 +75,15 @@ export default {
     handlers(val, oldVal){
       let name = this.$route.path.slice(1, (this.$route.path.length ))
       const curr = name.split('?')[0].split('-')[0]
+      console.log(curr)
       switch (curr) {
+        case '' : return this.activeIndex = '1';
         case 'index' : return this.activeIndex = '1';
         case 'notes' : return this.activeIndex = '2';
         case 'share' : return this.activeIndex = '3';
         case 'about' : return this.activeIndex = '4';
         case 'message' : return this.activeIndex = '5';
-        default : return this.activeIndex = '1';
+        default : return this.activeIndex = '999';
       }
     },
   },

@@ -9,6 +9,8 @@
             <el-breadcrumb-item>活动列表</el-breadcrumb-item>
           </breadcrumb>
           <Detail />
+          <footer-recom />
+          <article-comments />
         </div>
       </el-col>
       <el-col :span="6">
@@ -23,12 +25,14 @@
 
 <script>
 import Hot from '~/components/index/hotRecommended.vue'
-import Detail from '~/components/detail'
+import Detail from '~/components/detail/detail.vue'
+import footerRecom from '~/components/detail/footerRecom.vue'
 import Link from '~/components/index/friendlyLink.vue'
 import Recom from '~/components/index/Recommended.vue'
 import myCard from '~/components/index/myCard.vue'
 import sideList from '~/components/index/sideList.vue'
 import Breadcrumb from '~/components/layout/breadcrumb.vue'
+import articleComments from '~/components/comment/Comments.vue'
 
 export default {
   data() {
@@ -56,7 +60,9 @@ export default {
     Detail,
     myCard,
     sideList,
-    Breadcrumb
+    Breadcrumb,
+    footerRecom,
+    articleComments
   }
 }
 </script>

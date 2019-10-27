@@ -75,7 +75,6 @@ export default {
     handlers(val, oldVal){
       let name = this.$route.path.slice(1, (this.$route.path.length ))
       const curr = name.split('?')[0].split('-')[0]
-      console.log(curr)
       switch (curr) {
         case '' : return this.activeIndex = '1';
         case 'index' : return this.activeIndex = '1';

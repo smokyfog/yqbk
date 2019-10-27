@@ -40,8 +40,17 @@
               踩一下（1）
             </div>
           </div>
-          <div class="">
-            
+          <div class="detail_footer">
+            <span 
+              class="prev_article fa fa-angle-double-left"
+              title="上一篇"
+            ></span>
+            <p class="prev_title"> Python爬虫实战四之抓取淘宝MM照片</p>
+            <span
+              class="next_article fa fa-angle-double-right" 
+              title="下一篇"
+            ></span>
+            <p class="next_title"> Python爬虫实战四之抓取淘宝MM照片WordPress解决修改style.css不生效问题三步走！</p>
           </div>
         </div>
       </div>
@@ -101,11 +110,12 @@ export default {
     }
     .item_box {
       .detail_box {
-        min-height: 1000px;
+        min-height: 200px;
       }
       .detail_related {
         .article_oper_box {
           height: 50px;
+          margin-bottom: 20px;
           position: relative;
           div:hover{
             background: #969696;
@@ -148,6 +158,41 @@ export default {
             // top: -7px;
             width: 50px;
           }
+        }
+      }
+      .detail_footer {
+        position: relative;
+        height: 50px;
+        background-color: #fbfbfb;
+        overflow: hidden;
+        padding: 15px 20px;
+        font-size: 15px;
+        color: #bbb;
+        border-top: 1px solid #f2f2f2;
+        & > span {
+          position: absolute;
+          font-size: 20px;
+          cursor: pointer;
+        }
+        & > p {
+          cursor: pointer;
+          position: absolute;
+          width: 300px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .prev_article {
+          left: 20px;
+        }
+        .prev_title {
+          left: 40px;
+        }
+        .next_article {
+          right: 20px;
+        }
+        .next_title {
+          right: 40px;
         }
       }
     }

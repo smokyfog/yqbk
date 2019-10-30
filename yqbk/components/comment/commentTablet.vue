@@ -36,7 +36,7 @@
           type="primary" 
           size="small" 
           icon=""
-        >提交评论</el-button>
+        >提交</el-button>
       </div>
     </div>
   </div>

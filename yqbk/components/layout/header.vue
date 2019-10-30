@@ -35,7 +35,7 @@
                 <el-menu-item index="4-2">关于我的博客</el-menu-item>
               </nuxt-link>
             </el-submenu>
-            <nuxt-link to="/message">
+            <nuxt-link to="/messageboard">
               <el-menu-item index="5">留言</el-menu-item>
             </nuxt-link>
           </el-menu>
@@ -81,7 +81,7 @@ export default {
         case 'notes' : return this.activeIndex = '2';
         case 'share' : return this.activeIndex = '3';
         case 'about' : return this.activeIndex = '4';
-        case 'message' : return this.activeIndex = '5';
+        case 'messageboard' : return this.activeIndex = '5';
         default : return this.activeIndex = '999';
       }
     },

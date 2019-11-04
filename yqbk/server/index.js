@@ -6,6 +6,8 @@ const app = new Koa()
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
+const banner = require('./interface/banner')
+const article = require('./interface/article')
 config.dev = app.env !== 'production'
 
 async function start () {
@@ -24,6 +26,9 @@ async function start () {
   } else {
     await nuxt.ready()
   }
+
+  app.use(banner.routes()).use(banner.allowedMethods())
+  app.use(article.routes()).use(article.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200

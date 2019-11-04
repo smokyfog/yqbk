@@ -2,9 +2,11 @@
   <div class="container">
     <div id="banner_box">
       <el-carousel :interval="5000" arrow="always">
-        <el-carousel-item v-for="item in banner" :key="item.name + new Date().getTime() + item.url">
+        <el-carousel-item v-for="item in banner" :key="item._id + Math.random()">
           <h3>
-            <img :src="item.url" alt="">
+            <nuxt-link :to="'/detail?id=' + item.articleId">
+              <img :src="item.imageUrl" alt="">
+            </nuxt-link>
           </h3>
         </el-carousel-item>
       </el-carousel>
@@ -40,18 +42,7 @@ export default {
   data() {
     return {
       banner:[
-        {
-          name: 1,
-          url: 'http://www.zbboke.com/templets/boke/picture/banner_3.jpg'
-        },
-        {
-          name: 1,
-          url: 'http://www.zbboke.com/templets/boke/picture/banner.gif'
-        },
-        {
-          name: 1,
-          url: 'http://www.zbboke.com/templets/boke/picture/banner_1.jpg'
-        }
+        
       ]
     }
   },
@@ -62,6 +53,14 @@ export default {
     Article,
     myCard,
     sideList
+  },
+  async asyncData(ctx) {
+    let { data } = await ctx.$axios.get('/api/banner/list')
+    if (data && data.code === 0) {
+      return {
+        banner: data.data
+      }
+    }
   }
 }
 </script>

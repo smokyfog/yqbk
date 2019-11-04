@@ -8,7 +8,7 @@
             <el-breadcrumb-item>活动管理1</el-breadcrumb-item>
             <el-breadcrumb-item>活动列表</el-breadcrumb-item>
           </breadcrumb>
-          <Detail />
+          <Detail :detail="detail" />
           <footer-recom />
           <article-comments />
         </div>
@@ -50,7 +50,8 @@ export default {
           name: 1,
           url: 'http://www.zbboke.com/templets/boke/picture/banner_1.jpg'
         }
-      ]
+      ],
+      detail: {}
     }
   },
   components: {
@@ -63,6 +64,20 @@ export default {
     Breadcrumb,
     footerRecom,
     articleComments
+  },
+  async asyncData(ctx) {
+    const id = ctx.query.id
+    let { data } = await ctx.$axios.get('/api/article/get_article_detail', 
+    {
+      params : {
+        id
+      }
+    })
+    if (data && data.code === 0) {
+      return {
+        detail: data.data
+      }
+    }
   }
 }
 </script>

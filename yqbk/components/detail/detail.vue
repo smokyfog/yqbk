@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix article_header">
         <div class="article_title">
-          中秋节，做SEO的朋友不要光顾着玩
+          {{ detail.title }}
         </div>
         <div class="article_infos">
           <span>
@@ -16,17 +16,17 @@
           </span>
           <span>
             <i class="fa fa-eye"></i>
-            <span>{{ data.viewed }}次浏览</span>
+            <span>{{ detail.browseCount }}次浏览</span>
           </span>
           <span>
             <i class="fa fa-calendar-o"></i>
-            <span>{{ data.create_time }}</span>
+            <span>{{ detail.create_time | formatTime }}</span>
           </span>
         </div>
       </div>
       <div class="item_box">
-        <div class="detail_box">
-
+        <div class="detail_box" style="padding: 15px 30px">
+          <div v-html="detail.content" />
         </div>
         <div class="detail_related">
           <div class="article_oper_box clearfix">
@@ -60,6 +60,17 @@
  
  <script>
 export default {
+  props: {
+    detail: {
+      type: Object,
+      default: {}
+    }
+  },
+  filters: {
+    formatTime(val) {
+      return val ? new Date(val).toLocaleString() : '未知'
+    }
+  },
   data() {
     return {
       data : {

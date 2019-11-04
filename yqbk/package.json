@@ -19,6 +19,7 @@
     "element-ui": "^2.12.0",
     "font-awesome": "^4.7.0",
     "koa": "^2.6.2",
+    "koa-router": "^7.4.0",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.0",

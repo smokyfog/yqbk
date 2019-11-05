@@ -3,9 +3,13 @@
     <div id="banner_box">
       <el-carousel :interval="5000" arrow="always">
         <el-carousel-item v-for="item in banner" :key="item._id + Math.random()">
-          <h3>
+          <h3 style="height:100%;width:100%">
             <nuxt-link :to="'/detail?id=' + item.articleId">
-              <img :src="item.imageUrl" alt="">
+              <img
+                :src="item.imageUrl"
+                style="height:100%;width:100%"
+                alt=""
+              >
             </nuxt-link>
           </h3>
         </el-carousel-item>

@@ -5,8 +5,7 @@
         <div class="container_left">
           <breadcrumb>
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>活动管理1</el-breadcrumb-item>
-            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+            <el-breadcrumb-item>详情页</el-breadcrumb-item>
           </breadcrumb>
           <Detail :detail="detail" />
           <footer-recom />

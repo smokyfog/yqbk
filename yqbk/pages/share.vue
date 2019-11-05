@@ -3,7 +3,14 @@
     <el-row id="container_main" :gutter="20">
       <el-col :span="18">
         <div class="container_left">
-          <Article />
+          <Article
+            :page="page"
+            :type="type"
+            :total="total"
+            :pagesize="page_size"
+            :list="articlelist"
+            @changedata="change_data"
+          />
         </div>
       </el-col>
       <el-col :span="6">
@@ -18,7 +25,7 @@
 
 <script>
 import Hot from '~/components/index/hotRecommended.vue'
-import Article from '~/components/index/articleList.vue'
+import Article from '~/components/notes/articleList.vue'
 import Link from '~/components/index/friendlyLink.vue'
 import Recom from '~/components/index/Recommended.vue'
 import myCard from '~/components/index/myCard.vue'
@@ -27,20 +34,11 @@ import sideList from '~/components/index/sideList.vue'
 export default {
   data() {
     return {
-      banner:[
-        {
-          name: 1,
-          url: 'http://www.zbboke.com/templets/boke/picture/banner_3.jpg'
-        },
-        {
-          name: 1,
-          url: 'http://www.zbboke.com/templets/boke/picture/banner.gif'
-        },
-        {
-          name: 1,
-          url: 'http://www.zbboke.com/templets/boke/picture/banner_1.jpg'
-        }
-      ]
+      type: 10,
+      total: 0,
+      page_size: 20,
+      page: 1,
+      articlelist: []
     }
   },
   components: {
@@ -50,6 +48,28 @@ export default {
     Article,
     myCard,
     sideList
+  },
+  methods: {
+    change_data(key, data) {
+      this[key] = data
+    }
+  },
+  async asyncData(ctx) {
+    const param = {
+      page_size: 20,
+      page: 1,
+      type: 10,
+    }
+    let { data } = await ctx.$axios.get('/api/article/get_article_list', 
+    {
+      params: param
+    })
+    if (data && data.code === 0) {
+      return {
+        articlelist: data.data,
+        total: data.total
+      }
+    }
   }
 }
 </script>

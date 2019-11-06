@@ -49,19 +49,47 @@
             v-model="search_text">
           </el-input>
         </div>
+        <div id="header_user_info">
+          <div v-if="hasLogin" class="user_info_box" >
+            <span class="fa fa-bell"></span>
+            <div class="user_portrait">
+              <img :src="portrait" alt="">
+            </div>
+          </div>
+          <div v-else class="user_oper_box">
+            <a
+              href="javascript:;"
+              @click="show_register"
+            >注册</a>
+            <a
+              href="javascript:;"
+              @click="show_login"
+            >登陆</a>
+          </div>
+        </div>
       </div>
     </div>
+    <Register />
+    <Login />
   </div>
 </template>
 
 <script>
+import Register from './register'
+import Login from './login'
 export default {
   name: 'Header',
+  components: {
+    Register,
+    Login
+  },
   data() {
     return {
       activeIndex: '1',
       search_text: '',
-      routeParams: this.$route.param
+      routeParams: this.$route.param,
+      hasLogin: false,
+      portrait: 'http://sucimg.itc.cn/avatarimg/885662195_1506337866663_c55',
     }
   },
   created() {
@@ -85,6 +113,14 @@ export default {
         default : return this.activeIndex = '999';
       }
     },
+    // 打开注册窗口
+    show_register() {
+      this.$bus.$emit('show_register', 'show')
+    },
+    // 打开登陆窗口
+    show_login() {
+      this.$bus.$emit('show_login', 'show')
+    }
   },
   watch: {
     $route: {
@@ -139,11 +175,11 @@ export default {
       width: 85%;
       #menu_box {
         float: left;
-        width: 70%;
+        width: 60%;
       }
       #search_box {
         height: 100%;
-        width: 30%;
+        width: 25%;
         float: left;
         display: flex;
         justify-content: center;
@@ -158,6 +194,41 @@ export default {
           input:focus:invalid:focus, select:focus:invalid:focus, textarea:focus:invalid:focus {
             border-color: #e9322d;
             box-shadow: 0 0 6px #f8b9b7;
+          }
+        }
+      }
+      #header_user_info {
+        height: 100%;
+        width: 15%;
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a {
+          font-size: 15px;
+          padding: 5px;
+          color: rgb(225, 87, 130);
+        }
+        .user_info_box {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          span {
+            cursor: pointer;
+            font-size: 20px;
+            color: rgb(131, 131, 131);
+            padding: 10px;
+            margin-right: 20px;            
+          }
+          .user_portrait {
+            cursor: pointer;
+            height: 66%;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              height: 100%;
+            }
           }
         }
       }

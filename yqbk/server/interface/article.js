@@ -4,7 +4,7 @@ const router = new Router({ prefix: '/api/article' })
 
 router.get('/get_article_detail', async (ctx) => {
   const { id = null } = ctx.query
-  const { data } = await request.get('/article/get_article_detail', {
+  const { data } = await request.get('/bk/article/get_article_detail', {
     params: {
       id
     }
@@ -14,7 +14,7 @@ router.get('/get_article_detail', async (ctx) => {
 
 router.get('/get_article_list', async (ctx) => {
   const param = ctx.query
-  const { data } = await request.get('/article/list', {
+  const { data } = await request.get('/bk/article/list', {
     params: param
   })
   ctx.body = data

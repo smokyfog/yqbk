@@ -46,6 +46,7 @@
 
 <script>
 import UploadImg  from '~/components/UploadSingleImg'
+import axios from 'axios'
 import CryptoJS from 'crypto-js'
 export default {
   components: {
@@ -131,7 +132,22 @@ export default {
       });
     },
     async reqSubmit(data) {
-      
+      const res = await axios({
+        method: 'post',
+        url: '/bk/users/user_register',
+        data
+      })
+      .catch(err => {
+        this.$message.error('请求出错')
+      })
+      if (res.data && res.data.code === 0) {
+        this.$message({
+          message: res.data.msg,
+          type: 'success'
+        })
+      } else {
+        this.$message.error(res.data.msg)
+      }
     },
     // 重置表单
     resetForm(formName) {

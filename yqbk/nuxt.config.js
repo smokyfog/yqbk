@@ -53,7 +53,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration
@@ -61,6 +62,14 @@ module.exports = {
   */
   axios: {
   },
+  proxy: [
+    [
+      '/bk',
+      {
+        target: 'http://localhost:8001' // api主机
+      }
+    ]
+  ],
   /*
   ** Build configuration
   */

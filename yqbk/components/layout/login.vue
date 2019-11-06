@@ -7,12 +7,22 @@
       :scrollable="true"
       :footer-hide="true"
       class-name="login-center-modal">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="login-ruleForm">
+        <el-form 
+          :model="ruleForm" 
+          :rules="rules" 
+          ref="ruleForm" 
+          label-width="100px" 
+          class="login-ruleForm"
+        >
           <el-form-item label="用户昵称" prop="name">
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+            <el-input 
+              type="password" 
+              v-model="ruleForm.password" 
+              autocomplete="off"
+            />
           </el-form-item>
           <p class="oper_box">
             没有账号？ 请
@@ -21,8 +31,13 @@
             >注册</span>
           </p>
           <el-form-item class="btn_box">
-            <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm')"
+            >登录</el-button>
+            <el-button
+              @click="resetForm('ruleForm')"
+            >重置</el-button>
           </el-form-item>
         </el-form>
     </Modal>
@@ -31,7 +46,9 @@
 
 <script>
 import UploadImg  from '~/components/UploadSingleImg'
+// import axios from 'axios'
 import CryptoJS from 'crypto-js'
+import { async } from 'q'
 export default {
   components: {
     UploadImg
@@ -55,7 +72,7 @@ export default {
     }
   },
   created() {
-    this.$bus.$on('show_login', (data) => {
+    this.$bus.$on('show_login',async (data) => {
       try {
         this.$refs['ruleForm'].resetFields()
       } catch(err) {}
@@ -80,7 +97,23 @@ export default {
       });
     },
     async reqSubmit(data) {
-      console.log(data)
+      const selt = this
+      const res = await this.$axios({
+        method: 'post',
+        url: '/bk/users/user_login',
+        data
+      })
+      .catch(err => {
+        this.$message.error('请求出错')
+      })
+      if (res.data && res.data.code === 0) {
+        this.$message({
+          message: res.data.msg,
+          type: 'success'
+        })
+      } else {
+        this.$message.error(res.data.msg)
+      }
     },
     // 重置表单
     resetForm(formName) {

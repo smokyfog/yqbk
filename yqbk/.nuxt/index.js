@@ -11,10 +11,10 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_axios_083888e2 from 'nuxt_plugin_axios_083888e2' // Source: .\\axios.js (mode: 'all')
-import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ..\\plugins\\element-ui (mode: 'all')
-import nuxt_plugin_iview_fabcf5d2 from 'nuxt_plugin_iview_fabcf5d2' // Source: ..\\plugins\\iview (mode: 'all')
-import nuxt_plugin_businject_c5a15ffa from 'nuxt_plugin_businject_c5a15ffa' // Source: ..\\plugins\\bus-inject.js (mode: 'all')
+import nuxt_plugin_axios_0bd0858f from 'nuxt_plugin_axios_0bd0858f' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ../plugins/element-ui (mode: 'all')
+import nuxt_plugin_iview_fabcf5d2 from 'nuxt_plugin_iview_fabcf5d2' // Source: ../plugins/iview (mode: 'all')
+import nuxt_plugin_businject_c5a15ffa from 'nuxt_plugin_businject_c5a15ffa' // Source: ../plugins/bus-inject.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -148,8 +148,8 @@ async function createApp (ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_083888e2 === 'function') {
-    await nuxt_plugin_axios_083888e2(app.context, inject)
+  if (typeof nuxt_plugin_axios_0bd0858f === 'function') {
+    await nuxt_plugin_axios_0bd0858f(app.context, inject)
   }
 
   if (typeof nuxt_plugin_elementui_d905880e === 'function') {

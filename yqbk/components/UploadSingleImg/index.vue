@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import comm from '~/server/comm'
 export default {
   props: {
     image_url: {
@@ -25,7 +26,7 @@ export default {
   },
   data() {
     return {
-      uploadUrl: `/api/admin/article/putImg`
+      uploadUrl: `/bk/users/user_upload_portrait`
     }
   },
   methods: {

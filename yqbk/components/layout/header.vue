@@ -50,10 +50,10 @@
           </el-input>
         </div>
         <div id="header_user_info">
-          <div v-if="hasLogin" class="user_info_box" >
+          <div v-if="userInfo._id" class="user_info_box" >
             <span class="fa fa-bell"></span>
             <div class="user_portrait">
-              <img :src="portrait" alt="">
+              <img :src="userInfo.portrait" alt="">
             </div>
           </div>
           <div v-else class="user_oper_box">
@@ -77,25 +77,35 @@
 <script>
 import Register from './register'
 import Login from './login'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Header',
   components: {
     Register,
     Login
   },
+  computed: {
+    ...mapGetters('user', {
+      userInfo: 'getUserInfo'
+    })
+  },
   data() {
     return {
       activeIndex: '1',
       search_text: '',
       routeParams: this.$route.param,
-      hasLogin: false,
-      portrait: 'http://sucimg.itc.cn/avatarimg/885662195_1506337866663_c55',
+      // hasLogin: false,
+      // portrait: 'http://sucimg.itc.cn/avatarimg/885662195_1506337866663_c55',
     }
   },
   created() {
     this.handlers()
+    this.getUserInfo()
   },
   methods: {
+    ...mapActions('user', {
+      setUserInfo: 'setUserInfo'
+    }),
     handleSelect(key, keyPath) {
       // console.log(key, keyPath);
     },
@@ -111,6 +121,26 @@ export default {
         case 'about' : return this.activeIndex = '4';
         case 'messageboard' : return this.activeIndex = '5';
         default : return this.activeIndex = '999';
+      }
+    },
+    // 获取用户信息
+    async getUserInfo() {
+      const selt = this
+      const res = await this.$axios({
+        method: 'get',
+        url: '/bk/users/user_info'
+      })
+      .catch(err => {
+        this.$message.error('请求出错')
+      })
+      if (res.data && res.data.code === 0) {
+        this.setUserInfo(res.data.data)
+        // this.$message({
+        //   message: res.data.msg,
+        //   type: 'success'
+        // })
+      } else {
+        this.$message.error(res.data.msg)
       }
     },
     // 打开注册窗口

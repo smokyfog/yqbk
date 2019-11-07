@@ -46,7 +46,7 @@
 
 <script>
 import UploadImg  from '~/components/UploadSingleImg'
-// import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 import CryptoJS from 'crypto-js'
 import { async } from 'q'
 export default {
@@ -83,6 +83,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions('user', {
+      setUserInfo: 'setUserInfo'
+    }),
     // 提交表单
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -107,6 +110,7 @@ export default {
         this.$message.error('请求出错')
       })
       if (res.data && res.data.code === 0) {
+        this.setUserInfo(res.data.data)
         this.$message({
           message: res.data.msg,
           type: 'success'

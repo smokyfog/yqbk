@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import UploadImg  from '~/components/UploadSingleImg'
+import UploadImg from '~/components/UploadSingleImg'
 import { mapActions, mapGetters } from 'vuex'
 import CryptoJS from 'crypto-js'
-import { async } from 'q'
+import comm from '~/static/comm.js'
 export default {
   components: {
     UploadImg
@@ -103,18 +103,20 @@ export default {
       const selt = this
       const res = await this.$axios({
         method: 'post',
-        url: '/bk/users/user_login',
+        url: comm.baseUrl + '/bk/users/user_login',
         data
       })
       .catch(err => {
         this.$message.error('请求出错')
       })
+      console.log(res.data)
       if (res.data && res.data.code === 0) {
         this.setUserInfo(res.data.data)
         this.$message({
           message: res.data.msg,
           type: 'success'
         })
+        this.login_modal = false
       } else {
         this.$message.error(res.data.msg)
       }

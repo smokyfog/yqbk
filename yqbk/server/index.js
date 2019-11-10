@@ -3,12 +3,20 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
 const app = new Koa()
-
+const koaBody = require('koa-body')
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 const banner = require('./interface/banner')
 const article = require('./interface/article')
+const comments = require('./interface/comments')
 config.dev = app.env !== 'production'
+// koaBody 用于上传
+app.use(koaBody({
+  multipart: true,
+  formidable: {
+    maxFileSize: 200 * 1024 * 1024 // 设置上传文件大小最大限制，默认2M
+  }
+}))
 
 async function start () {
   // Instantiate nuxt.js
@@ -29,6 +37,7 @@ async function start () {
 
   app.use(banner.routes()).use(banner.allowedMethods())
   app.use(article.routes()).use(article.allowedMethods())
+  app.use(comments.routes()).use(comments.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200

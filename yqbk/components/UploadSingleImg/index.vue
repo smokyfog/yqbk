@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import comm from '~/server/comm'
+// import comm from '~/server/comm'
 export default {
   props: {
     image_url: {

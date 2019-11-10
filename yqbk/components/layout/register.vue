@@ -48,6 +48,7 @@
 import UploadImg  from '~/components/UploadSingleImg'
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
+import comm from '~/static/comm.js'
 export default {
   components: {
     UploadImg
@@ -134,7 +135,7 @@ export default {
     async reqSubmit(data) {
       const res = await axios({
         method: 'post',
-        url: '/bk/users/user_register',
+        url: comm.baseUrl + '/bk/users/user_register',
         data
       })
       .catch(err => {
@@ -145,6 +146,7 @@ export default {
           message: res.data.msg,
           type: 'success'
         })
+        this.handleLogin()
       } else {
         this.$message.error(res.data.msg)
       }

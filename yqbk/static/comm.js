@@ -1,5 +1,5 @@
-const api = {
+const comm = {
   baseUrl: 'http://localhost:8001'
 }
 
-module.exports = api
+export default comm

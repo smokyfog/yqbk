@@ -39,7 +39,8 @@ module.exports = {
       src: '~plugins/iview',
       ssr: true
     },
-    '~/plugins/bus-inject.js'
+    '~/plugins/bus-inject.js',
+    '~/plugins/axios.js'
   ],
   /*
   ** Nuxt.js dev-modules

@@ -9,70 +9,32 @@
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="text comments_box_content">
-        <div class="comments_box">
-          <el-input
-            type="textarea"
-            :autosize="{ minRows: 4, maxRows: 6}"
-            placeholder="请输入内容"
-            v-model="comments_text">
-          </el-input>
-          <el-popover
-            v-model="is_show_emoji"
-            ref="emojipopover"
-            placement="right"
-            width="400"
-            trigger="click">
-            <div class="emoji_select">
-              <div 
-                v-for="item in emoji_list" 
-                :key="item + Math.random()" 
-                class="emoji_item"
-                @click="inputEmoji(item)"
-              >
-                {{ item }}
-              </div>
-            </div>
-          </el-popover>
-          <div class="comments_oper">
-            <div
-              v-popover:emojipopover
-              class="comments_icon" 
-              title="表情">
-              <span class="emoji_box">😃</span>
-              <span class="emoji_title">表情</span>
-            </div>
-            <div class="comments_publish">
-              <el-button 
-                type="primary" 
-                size="small" 
-                icon=""
-              >提交评论</el-button>
-            </div>
-          </div>
-        </div>
+        <commentTablet @submitinfo="submitComment"/>
         <div class="comments_area">
           <div class="comments_area_top">
             评论（13）
           </div>
           <div class="comments_area_content">
-            <div class="comments_index" v-for="item in 3" :key="item + Math.random()">
+            <div class="comments_index" v-for="(item, idx) in list" :key="item._id + Math.random()">
                 <div class="portrait_box">
-                  <img src="http://sucimg.itc.cn/avatarimg/885662195_1506337866663_c55" alt="">
+                  <img :src="item.userinfo.portrait" alt="">
                 </div>
                 <div class="text_box">
                   <div class="comments_index_item">
                     <div class="user_info_box">
-                      <p class="user_name">榭下一袭正觞 </p>
+                      <p class="user_name">{{ item.userinfo.nickname }}</p>
                     </div>
                     <div class="user_comment_box">
-                      <p class="user_comment_box">
-                        之前那个网站已经关闭了，现在这个域名只是作为工作使用的。前端随便写的是个全屏背景。但是有人我的主页一直按F5给我服务器增加负担，服务器只是一台很垃圾的台式电脑，我发出来只是作为技术交流的。希望手下留情
-                      </p>
+                      <p class="user_comment_box" v-text="item.content"></p>
                     </div>
                   </div>
                   
                   <div class="reply_box">
-                    <div class="comments_index comments_index_reply">
+                    <div 
+                      class="comments_index comments_index_reply"
+                      v-for="reply in item.replys"
+                      :key="reply._id + Math.random()"
+                    >
                       <div class="portrait_box">
                         <img src="http://cy-pic.kuaizhan.com/c_zoom,w_200/fac494264beff70ed91fedf32783552b_default_1449556072985_jpg?sign=7f4b223401b5caef54dcc2b71b741bc0&t=1571934148" alt="">
                       </div>
@@ -81,39 +43,35 @@
                           <p class="user_name">榭下一袭正觞 </p>
                         </div>
                         <div class="user_comment_box">
-                          <p class="user_comment_box">
-                            之前那个网站已经关闭了，现在这个域名只是作为工作使用的。前端随便写的是个全屏背景。但是有人我的主页一直按F5给我服务器增加负担，服务器只是一台很垃圾的台式电脑，我发出来只是作为技术交流的。希望手下留情
-                          </p>
+                          <p class="user_comment_box" v-text="reply.content"></p>
                         </div>
                         <!-- <div class="reply_box">
                           
                         </div> -->
                       </div>
                     </div>
-                    <div class="comments_index comments_index_reply">
-                      <div class="portrait_box">
-                        <img src="http://cy-pic.kuaizhan.com/c_zoom,w_200/fac494264beff70ed91fedf32783552b_default_1449555774840_jpg?sign=ebc88a0aff7c03b93b1eab2cafa745cd&t=1571934189" alt="">
-                      </div>
-                      <div class="text_box">
-                        <div class="user_info_box">
-                          <p class="user_name">榭下一袭正觞 </p>
-                        </div>
-                        <div class="user_comment_box">
-                          <p class="user_comment_box">
-                            之前那个网站已经关闭了，现在这个域名只是作为工作使用的。前端随便写的是个全屏背景。但是有人我的主页一直按F5给我服务器增加负担，服务器只是一台很垃圾的台式电脑，我发出来只是作为技术交流的。希望手下留情
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="reply_oper_box">
+                    <div class="reply_oper_box" v-if="item.replys.length > 5">
                       <div class="">
                         <span class="fa fa-list-ul"></span>
                         查看全部
                       </div>
-                      <div class="">
+                      <div class="" @click="changeCommentShow(idx)">
                         <span class="fa fa-share"></span>
-                        回复
+                        {{ idx == currCommentShow ? 
+                            '收起回复' : 
+                            '回复'
+                         }}
                       </div>
+                    </div>
+                    <div class="reply_tablet_box" v-show="idx == currCommentShow">
+                      <el-card class="box-card">
+                        <div slot="header" class="clearfix">
+                          <span>回复</span>
+                        </div>
+                        <div class="text item">
+                          <commentTablet @submitinfo="submitReply" :commentid="item._id"/>
+                        </div>
+                      </el-card>
                     </div>
                   </div>
                 </div>
@@ -125,7 +83,7 @@
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="page"
-              :page-sizes="[5, 10, 100, 200, 300, 400]"
+              :page-sizes="[5, 10, 20, 30]"
               :page-size="page_size"
               layout="total, sizes, prev, pager, next, jumper"
               :total="total">
@@ -138,30 +96,112 @@
 </template>
  
  <script>
+import commentTablet from './commentTablet'
+import comm from '~/static/comm.js'
 export default {
+  components:{
+    commentTablet
+  },
   data() {
     return {
-      comments_text: '',
-      is_show_emoji: false,
       list: [],
       page_size: 5,
-      page: 4,
+      page: 1,
       total: 900,
-      emoji_list :['😃', '😅', '😆', '🤣', '😂', '🙂', '😉', '😊', '🥰',
-       '😍', '😚', '🤪','🤪', '😐', '😒', '🙄', '😴', '😡', '😤', '😖', 
-       '😭', '😢', '😧', '🥺', '😳', '💀', '👀', '💍', '💼', '💄']
+      currCommentShow: null
     }
+  },
+  computed: {
+    comment_tablet_show(idx) {
+      return this.tablet_show == idx
+    }
+  },
+  created() {
+    this.get_comments()
   },
   methods: {
     inputEmoji(txt) {
       this.comments_text += txt
       this.is_show_emoji = false
+      console.log(this.$route)
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
+      this.page_size = val
+      this.get_comments()
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+      this.page = val
+      this.get_comments()
+    },
+    // 改变恢复的输入
+    changeCommentShow(idx) {
+      if (this.currCommentShow == idx) {
+        this.currCommentShow = null
+      } else {
+        this.currCommentShow = idx
+      }
+    },
+    // 提交评论
+    async submitComment(txt) {
+      if (!txt) {
+        this.$message.error('请输入消息内容')
+      } else {
+        const _id = this.$route.query.id
+        const { data } = await this.$axios.post(
+          comm.baseUrl + '/bk/comments/article_comment', 
+          {articleId: _id, content: txt } 
+        )
+        if(data && data.code === 0) {
+          this.$message({
+            message: data.msg,
+            type: 'success'
+          })
+        } else {
+          this.$message.error(data.msg)
+        }
+      }
+    },
+    // 回复
+    async submitReply(txt, _id) {
+      const articleId = this.$route.query.id
+      if (!txt) {
+        this.$message.error('请输入消息内容')
+      } else {
+        const { data } = await this.$axios.post(
+          comm.baseUrl + '/bk/comments/article_reply', 
+          { commentId: _id, content: txt, articleId } 
+        )
+        if(data && data.code === 0) {
+          this.$message({
+            message: data.msg,
+            type: 'success'
+          })
+        } else {
+          this.$message.error(data.msg)
+        }
+      }
+    },
+    // 获取评论
+    async get_comments() {
+      const _id = this.$route.query.id
+      const { data } = await this.$axios.get(
+        comm.baseUrl + '/bk/comments/get_comments_by_id', 
+         {
+           params: {
+             _id,
+            page: this.page,
+            page_size: this.page_size
+           }
+        } 
+      )
+      if(data && data.code === 0) {
+        this.total = data.total
+        this.list = data.data
+      } else {
+        this.$message.error(data.msg)
+      }
     }
   }
 };
@@ -192,37 +232,6 @@ export default {
         padding: 0px 10px 10px 10px;
       }
       .comments_box_content {
-        .comments_box {
-          padding: 5px 10px 5px 10px;
-          .comments_oper {
-            padding: 10px 2px;
-            display: flex;
-            justify-content: space-between;
-            .comments_icon {
-              cursor: pointer;
-              margin-left: 3px;
-              span {
-                float: left;
-              }
-              .emoji_box {
-                font-size: 21px;
-              }
-              .emoji_title {
-                line-height: 31px;;
-                height: 31px;
-                color: #1b1212;
-                font-size: 16px;
-                padding-left: 4px;
-              }
-              // width: 200px;
-            }
-            .comments_publish {
-              display: flex;
-              justify-content: flex-end;
-              // width: 200px;
-            }
-          }
-        }
         .comments_area {
           padding: 16px;
           .comments_area_top {
@@ -275,6 +284,7 @@ export default {
               .reply_oper_box {
                 display: flex;
                 border-top: 1px solid #ddd;
+                
                 div {
                   cursor: pointer;
                   font-size: 12px;
@@ -307,9 +317,17 @@ export default {
                   border-color: rgba(0, 0, 0, 0.16);
                 }
               }
-
+              .reply_tablet_box {
+                padding-top: 20px;
+                transition:  all 0.6s;
+                .el-card__header {
+                  span {
+                    font-size: 16px;
+                    padding: 0 20px;
+                  }
+                }
+              } 
             }
-            
           }
           .pagination_box {
             .el-pagination {

@@ -31,7 +31,7 @@ import Recom from '~/components/index/Recommended.vue'
 import myCard from '~/components/index/myCard.vue'
 import sideList from '~/components/index/sideList.vue'
 import Breadcrumb from '~/components/layout/breadcrumb.vue'
-import articleComments from '~/components/comment/Comments.vue'
+import articleComments from '~/components/detail/articleComments.vue'
 
 export default {
   data() {

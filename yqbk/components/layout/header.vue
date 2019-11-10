@@ -52,9 +52,16 @@
         <div id="header_user_info">
           <div v-if="userInfo._id" class="user_info_box" >
             <span class="fa fa-bell"></span>
-            <div class="user_portrait">
-              <img :src="userInfo.portrait" alt="">
-            </div>
+            <el-dropdown @command="handleCommand">
+                <span class="el-dropdown-link">
+                  <div class="user_portrait">
+                    <img :src="userInfo.portrait" alt="">
+                  </div>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="quitLogin">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
           </div>
           <div v-else class="user_oper_box">
             <a
@@ -77,6 +84,7 @@
 <script>
 import Register from './register'
 import Login from './login'
+import comm from '~/static/comm.js'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Header',
@@ -104,7 +112,8 @@ export default {
   },
   methods: {
     ...mapActions('user', {
-      setUserInfo: 'setUserInfo'
+      setUserInfo: 'setUserInfo',
+      delUserInfo: 'delUserInfo'
     }),
     handleSelect(key, keyPath) {
       // console.log(key, keyPath);
@@ -128,7 +137,7 @@ export default {
       const selt = this
       const res = await this.$axios({
         method: 'get',
-        url: '/bk/users/user_info'
+        url: comm.baseUrl + '/bk/users/user_info'
       })
       .catch(err => {
         this.$message.error('请求出错')
@@ -140,7 +149,7 @@ export default {
         //   type: 'success'
         // })
       } else {
-        this.$message.error(res.data.msg)
+        // this.$message.error(res.data.msg)
       }
     },
     // 打开注册窗口
@@ -150,6 +159,27 @@ export default {
     // 打开登陆窗口
     show_login() {
       this.$bus.$emit('show_login', 'show')
+    },
+    // 选择下拉菜单
+    async handleCommand(command) {
+      if (command === 'quitLogin') {
+        const { data } = await this.$axios({
+          method: 'post',
+          url: comm.baseUrl + '/bk/users/quit_login'
+        })
+        .catch(err => {
+          this.$message.error('请求出错')
+        })
+        if (data && data.code === 0) {
+          this.$message({
+            message: data.msg,
+            type: 'success'
+          })
+          this.delUserInfo()
+        } else {
+          this.$message.error(data.msg)
+        }
+      }
     }
   },
   watch: {
@@ -253,7 +283,7 @@ export default {
           }
           .user_portrait {
             cursor: pointer;
-            height: 66%;
+            height: 35px;
             border-radius: 50%;
             overflow: hidden;
             img {

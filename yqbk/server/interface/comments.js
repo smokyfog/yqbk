@@ -1,9 +1,9 @@
 const Router = require('koa-router')
 const comm = require('../comm')
 const request = require('./utils/axios')
-const router = new Router({ prefix: '/api/article' })
+const router = new Router({ prefix: '/api/comments' })
 
-router.get('/get_article_detail', async (ctx) => {
+router.get('/get_comments_list', async (ctx) => {
   const { id = null } = ctx.query
   const { data } = await request.get(
     comm.baseUrl + '/bk/article/get_article_detail', {
@@ -14,12 +14,11 @@ router.get('/get_article_detail', async (ctx) => {
   ctx.body = data
 })
 
-router.get('/get_article_list', async (ctx) => {
-  const param = ctx.query
-  const { data } = await request.get(
-    comm.baseUrl + '/bk/article/list', {
-      params: param
-    })
+router.post('/article_comment', async (ctx) => {
+  const param = ctx.request.body
+  const { data } = await request.post(
+    comm.baseUrl + '/bk/comments/article_comment', param
+  )
   ctx.body = data
 })
 

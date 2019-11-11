@@ -12,7 +12,7 @@
         <commentTablet @submitinfo="submitComment"/>
         <div class="comments_area">
           <div class="comments_area_top">
-            评论（13）
+            评论（{{ total }}）
           </div>
           <div class="comments_area_content">
             <div class="comments_index" v-for="(item, idx) in list" :key="item._id + Math.random()">
@@ -23,6 +23,7 @@
                   <div class="comments_index_item">
                     <div class="user_info_box">
                       <p class="user_name">{{ item.userinfo.nickname }}</p>
+                      <p class="user_create_time">{{ item.create_time | formatTime }}</p>
                     </div>
                     <div class="user_comment_box">
                       <p class="user_comment_box" v-text="item.content"></p>
@@ -36,11 +37,12 @@
                       :key="reply._id + Math.random()"
                     >
                       <div class="portrait_box">
-                        <img src="http://cy-pic.kuaizhan.com/c_zoom,w_200/fac494264beff70ed91fedf32783552b_default_1449556072985_jpg?sign=7f4b223401b5caef54dcc2b71b741bc0&t=1571934148" alt="">
+                        <img :src="reply.portrait" alt="">
                       </div>
                       <div class="text_box">
                         <div class="user_info_box">
-                          <p class="user_name">榭下一袭正觞 </p>
+                          <p class="user_name">{{ reply.nickname }}</p>
+                          <p class="user_create_time">{{ reply.create_time | formatTime }}</p>
                         </div>
                         <div class="user_comment_box">
                           <p class="user_comment_box" v-text="reply.content"></p>
@@ -50,8 +52,8 @@
                         </div> -->
                       </div>
                     </div>
-                    <div class="reply_oper_box" v-if="item.replys.length > 5">
-                      <div class="">
+                    <div class="reply_oper_box">
+                      <div class="" v-if="item.replys.length > 5">
                         <span class="fa fa-list-ul"></span>
                         查看全部
                       </div>
@@ -79,6 +81,7 @@
           </div>
           <div class="pagination_box">
             <el-pagination
+              v-if="total > page_size"
               background
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
@@ -99,6 +102,11 @@
 import commentTablet from './commentTablet'
 import comm from '~/static/comm.js'
 export default {
+  filters: {
+    formatTime(val) {
+      return val ? new Date(val).toLocaleString() : '未知'
+    }
+  },
   components:{
     commentTablet
   },
@@ -158,6 +166,7 @@ export default {
             message: data.msg,
             type: 'success'
           })
+          this.get_comments()
         } else {
           this.$message.error(data.msg)
         }
@@ -178,6 +187,7 @@ export default {
             message: data.msg,
             type: 'success'
           })
+          this.get_comments()
         } else {
           this.$message.error(data.msg)
         }
@@ -244,7 +254,8 @@ export default {
           }
           .comments_index {
             padding: 15px;
-            min-height: 110px;
+            padding-right: 0;
+            min-height: 84px;
             border-bottom: 1px solid #ddd;
             display: grid;
             grid-template-columns: 8% 92%;
@@ -266,13 +277,22 @@ export default {
             .text_box {
               .user_info_box {
                 padding: 2px 0;
+                display: flex;
+                justify-content: space-between;
                 .user_name {
                   font-weight: 700;
+                }
+                .user_create_time {
+                  float: right;
+                  margin-right: 10px;
+                  color: #636363;
+                  font-size: 14px;
                 }
               }
             }
             .reply_box {
               padding: 10px 0;
+              padding-bottom: 0px;
               .comments_index_reply {
                 border-top: 1px solid #ddd;
                 grid-template-columns: 9% 91%;

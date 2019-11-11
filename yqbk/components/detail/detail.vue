@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="item_box">
-        <div class="detail_box" style="padding: 15px 30px">
+        <div class="detail_box">
           <div v-html="detail.content" />
         </div>
         <div class="detail_related">
@@ -101,10 +101,11 @@ export default {
       .article_title {
         color: #5a5a5a;
         font-size: 24px;
+        padding: 10px 0;
         text-align: center;
       }
       .article_infos {
-        margin-top: 15px;
+        margin-top: 5px;
         width: 100%;
         display: flex;
         justify-content: flex-end;
@@ -122,11 +123,13 @@ export default {
     .item_box {
       .detail_box {
         min-height: 200px;
+        padding: 30px
       }
       .detail_related {
         .article_oper_box {
           height: 50px;
           margin-bottom: 20px;
+          margin-top: 20px;
           position: relative;
           div:hover{
             background: #969696;

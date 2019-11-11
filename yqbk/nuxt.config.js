@@ -40,7 +40,8 @@ module.exports = {
       ssr: true
     },
     '~/plugins/bus-inject.js',
-    '~/plugins/axios.js'
+    '~/plugins/axios.js',
+    '~plugins/filters.js'
   ],
   /*
   ** Nuxt.js dev-modules

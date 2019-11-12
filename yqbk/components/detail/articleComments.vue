@@ -1,5 +1,5 @@
  <template>
-  <div id="article-comments">
+  <div class="article-comments comment_content">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span class="comments_header_box">
@@ -218,7 +218,7 @@ export default {
 </script>
  
  <style lang="scss">
- #article-comments {
+ .comment_content {
     .box-card {
       margin-bottom: 10px;
       .comments_header_box {
@@ -253,10 +253,11 @@ export default {
             padding: 10px 0;
           }
           .comments_index {
-            padding: 15px;
+            padding: 15px 0;
+            margin-left: 20px;
             padding-right: 0;
             min-height: 84px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eaeaea;
             display: grid;
             grid-template-columns: 8% 92%;
             grid-template-rows: 100%;
@@ -291,20 +292,21 @@ export default {
               }
             }
             .reply_box {
-              padding: 10px 0;
+              margin-left: -24px;
+              padding: 15px 0;
               padding-bottom: 0px;
               .comments_index_reply {
-                border-top: 1px solid #ddd;
+                // border-top: 1px solid #ddd;
                 grid-template-columns: 9% 91%;
                 border-bottom: none;
+                margin-right: 0;
                 .portrait_box {
                   margin-top: 3px;
                 }
               }
               .reply_oper_box {
                 display: flex;
-                border-top: 1px solid #ddd;
-                
+                // border-top: 1px solid #ddd;
                 div {
                   cursor: pointer;
                   font-size: 12px;

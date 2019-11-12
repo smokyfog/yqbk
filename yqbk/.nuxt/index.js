@@ -17,6 +17,7 @@ import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // S
 import nuxt_plugin_iview_fabcf5d2 from 'nuxt_plugin_iview_fabcf5d2' // Source: ../plugins/iview (mode: 'all')
 import nuxt_plugin_businject_c5a15ffa from 'nuxt_plugin_businject_c5a15ffa' // Source: ../plugins/bus-inject.js (mode: 'all')
 import nuxt_plugin_axios_5659d192 from 'nuxt_plugin_axios_5659d192' // Source: ../plugins/axios.js (mode: 'all')
+import nuxt_plugin_filters_2b4f519a from 'nuxt_plugin_filters_2b4f519a' // Source: ../plugins/filters.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -191,6 +192,10 @@ async function createApp (ssrContext) {
 
   if (typeof nuxt_plugin_axios_5659d192 === 'function') {
     await nuxt_plugin_axios_5659d192(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_filters_2b4f519a === 'function') {
+    await nuxt_plugin_filters_2b4f519a(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

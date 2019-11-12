@@ -1,0 +1,159 @@
+.comment_content {
+
+.emoji_select {
+  .emoji_item {
+    cursor: pointer;
+    font-size: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 37px;
+    height: 37px;
+  }
+}
+  .box-card {
+    margin-bottom: 10px;
+    .comments_header_box {
+      display: flex;
+      align-items: center;
+      color: #636363;
+      .fa-user {
+        margin-left: 10px;
+        font-size: 20px;
+      }
+      .comments_title {
+        font-size: 16px;
+        margin-left: 10px;
+      }
+    }
+    .el-card__header {
+      padding: 12px 8px;
+      border-bottom: 0px;
+    }
+    .el-card__body {
+      padding: 0px 10px 10px 10px;
+    }
+    .comments_box_content {
+      .comments_area {
+        padding: 16px;
+        .comments_area_top {
+          font-size: 18px;
+          padding: 8px 0;
+          border-bottom: 1px solid #ddd
+        }
+        .comments_area_content {
+          padding: 10px 0;
+        }
+        .comments_index {
+          padding: 15px 0;
+          margin: 0 20px;
+          padding-right: 0;
+          min-height: 84px;
+          border-bottom: 1px solid #eaeaea;
+          display: grid;
+          grid-template-columns: 8% 92%;
+          grid-template-rows: 100%;
+          .comments_index_item {
+            padding: 10px 0;
+          }
+          .portrait_box {
+            height: 50px;
+            width: 50px;
+            margin-top: 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .text_box {
+            .user_info_box {
+              padding: 2px 0;
+              display: flex;
+              justify-content: space-between;
+              .user_name {
+                font-weight: 700;
+              }
+              .user_create_time {
+                float: right;
+                margin-right: 10px;
+                color: #636363;
+                font-size: 14px;
+              }
+            }
+          }
+          .reply_box {
+            margin-left: -24px;
+            padding: 10px 0;
+            padding-bottom: 0px;
+            .comments_index_reply {
+              // border-top: 1px solid #ddd;
+              grid-template-columns: 9% 91%;
+              border-bottom: none;
+              .portrait_box {
+                margin-top: 3px;
+              }
+            }
+            .reply_oper_box {
+              display: flex;
+              // border-top: 1px solid #ddd;
+              div {
+                cursor: pointer;
+                font-size: 12px;
+                margin: 16px 10px 0 10px;
+                -webkit-appearance: none;
+                border: none;
+                overflow: visible;
+                font: inherit;
+                color: #444444;
+                text-transform: none;
+                display: inline-block;
+                box-sizing: border-box;
+                padding: 0 12px;
+                background: #f5f5f5;
+                vertical-align: middle;
+                line-height: 24px;
+                min-height: 24px;
+                text-decoration: none;
+                text-align: center;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                border-radius: 4px;
+                text-shadow: 0 1px 0 #ffffff;
+              } 
+              div:hover, div:focus {
+                transition: all 0.5s;
+                background-color: #fafafa;
+                color: #444444;
+                outline: none;
+                text-decoration: none;
+                border-color: rgba(0, 0, 0, 0.16);
+              }
+            }
+            .reply_tablet_box {
+              padding-top: 20px;
+              transition:  all 0.6s;
+              .el-card__header {
+                span {
+                  font-size: 16px;
+                  padding: 0 20px;
+                }
+              }
+            } 
+          }
+        }
+        .pagination_box {
+          .el-pagination {
+            display: flex;
+            justify-content: center
+          }
+        }
+        
+      }
+    }
+ }
+ .el-card.is-always-shadow, .el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+  }
+  
+}

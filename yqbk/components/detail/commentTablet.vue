@@ -67,6 +67,7 @@ export default {
     },
     submitInfo() {
       this.$emit('submitinfo', this.comments_text, this.commentid)
+      this.comments_text = ''
     }
   }
 }

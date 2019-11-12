@@ -1,5 +1,5 @@
  <template>
-  <div id="leave-words">
+  <div class="leave_worlds comment_content">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span class="comments_header_box">
@@ -9,70 +9,51 @@
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="text comments_box_content">
-        <commentTablet />
+        <commentTablet @submitinfo="submitComment"/>
         <div class="comments_area">
           <div class="comments_area_top">
-            评论（13）
+            留言（{{ total }}）
           </div>
           <div class="comments_area_content">
-            <div class="comments_index" v-for="(item, idx) in 5" :key="item + Math.random()">
+            <div class="comments_index" v-for="(item, idx) in list" :key="item._id + Math.random()">
                 <div class="portrait_box">
-                  <img src="http://sucimg.itc.cn/avatarimg/885662195_1506337866663_c55" alt="">
+                  <img :src="item.userinfo.portrait" alt="">
                 </div>
                 <div class="text_box">
                   <div class="comments_index_item">
                     <div class="user_info_box">
-                      <p class="user_name">榭下一袭正觞 </p>
+                      <p class="user_name">{{ item.userinfo.nickname }}</p>
+                      <p class="user_create_time">{{ item.create_time | formatTime }}</p>
                     </div>
                     <div class="user_comment_box">
-                      <p class="user_comment_box">
-                        之前那个网站已经关闭了，现在这个域名只是作为工作使用的。
-                        前端随便写的是个全屏背景。但是有人我的主页一直按F5给我服务器增加负担，
-                        服务器只是一台很垃圾的台式电脑，我发出来只是作为技术交流的。希望手下留情
-                      </p>
+                      <p class="user_comment_box" v-text="item.content"></p>
                     </div>
                   </div>
                   
                   <div class="reply_box">
-                    <div class="comments_index comments_index_reply">
+                    <div 
+                      class="comments_index comments_index_reply"
+                      v-for="reply in item.replys"
+                      :key="reply._id + Math.random()"
+                    >
                       <div class="portrait_box">
-                        <img src="http://cy-pic.kuaizhan.com/c_zoom,w_200/fac494264beff70ed91fedf32783552b_default_1449556072985_jpg?sign=7f4b223401b5caef54dcc2b71b741bc0&t=1571934148" alt="">
+                        <img :src="reply.portrait" alt="">
                       </div>
                       <div class="text_box">
                         <div class="user_info_box">
-                          <p class="user_name">榭下一袭正觞 </p>
+                          <p class="user_name">{{ reply.nickname }}</p>
+                          <p class="user_create_time">{{ reply.create_time | formatTime }}</p>
                         </div>
                         <div class="user_comment_box">
-                          <p class="user_comment_box">
-                            之前那个网站已经关闭了，现在这个域名只是作为工作使用的。
-                            前端随便写的是个全屏背景。但是有人我的主页一直按F5给我服务器增加负担，
-                            服务器只是一台很垃圾的台式电脑，我发出来只是作为技术交流的。希望手下留情
-                          </p>
+                          <p class="user_comment_box" v-text="reply.content"></p>
                         </div>
                         <!-- <div class="reply_box">
                           
                         </div> -->
                       </div>
                     </div>
-                    <div class="comments_index comments_index_reply">
-                      <div class="portrait_box">
-                        <img src="http://cy-pic.kuaizhan.com/c_zoom,w_200/fac494264beff70ed91fedf32783552b_default_1449555774840_jpg?sign=ebc88a0aff7c03b93b1eab2cafa745cd&t=1571934189" alt="">
-                      </div>
-                      <div class="text_box">
-                        <div class="user_info_box">
-                          <p class="user_name">榭下一袭正觞 </p>
-                        </div>
-                        <div class="user_comment_box">
-                          <p class="user_comment_box">
-                            之前那个网站已经关闭了，现在这个域名只是作为工作使用的。
-                            前端随便写的是个全屏背景。但是有人我的主页一直按F5给我服务器增加负担，
-                            服务器只是一台很垃圾的台式电脑，我发出来只是作为技术交流的。希望手下留情
-                          </p>
-                        </div>
-                      </div>
-                    </div>
                     <div class="reply_oper_box">
-                      <div class="">
+                      <div class="" v-if="item.replys.length > 5">
                         <span class="fa fa-list-ul"></span>
                         查看全部
                       </div>
@@ -90,7 +71,7 @@
                           <span>回复</span>
                         </div>
                         <div class="text item">
-                          <commentTablet  />
+                          <commentTablet @submitinfo="submitReply" :commentid="item._id"/>
                         </div>
                       </el-card>
                     </div>
@@ -100,11 +81,12 @@
           </div>
           <div class="pagination_box">
             <el-pagination
+              v-if="total > page_size"
               background
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="page"
-              :page-sizes="[5, 10, 100, 200, 300, 400]"
+              :page-sizes="[5, 10, 20, 30]"
               :page-size="page_size"
               layout="total, sizes, prev, pager, next, jumper"
               :total="total">
@@ -117,16 +99,22 @@
 </template>
  
  <script>
- import commentTablet from './commentTablet'
+import commentTablet from '../detail/commentTablet'
+import comm from '~/static/comm.js'
 export default {
+  filters: {
+    formatTime(val) {
+      return val ? new Date(val).toLocaleString() : '未知'
+    }
+  },
   components:{
     commentTablet
   },
   data() {
     return {
       list: [],
-      page_size: 5,
-      page: 4,
+      page_size: 20,
+      page: 1,
       total: 900,
       currCommentShow: null
     }
@@ -136,16 +124,21 @@ export default {
       return this.tablet_show == idx
     }
   },
+  created() {
+    this.get_comments()
+  },
   methods: {
     inputEmoji(txt) {
       this.comments_text += txt
       this.is_show_emoji = false
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.page_size = val
+      this.get_comments()
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      this.page = val
+      this.get_comments()
     },
     // 改变恢复的输入
     changeCommentShow(idx) {
@@ -154,14 +147,73 @@ export default {
       } else {
         this.currCommentShow = idx
       }
-      
+    },
+    // 提交评论
+    async submitComment(txt) {
+      if (!txt) {
+        this.$message.error('请输入消息内容')
+      } else {
+        const _id = this.$route.query.id
+        const { data } = await this.$axios.post(
+          comm.baseUrl + '/bk/leavemessage/comment', 
+          { content: txt } 
+        )
+        if(data && data.code === 0) {
+          this.$message({
+            message: data.msg,
+            type: 'success'
+          })
+          this.get_comments()
+        } else {
+          this.$message.error(data.msg)
+        }
+      }
+    },
+    // 回复
+    async submitReply(txt, _id) {
+      if (!txt) {
+        this.$message.error('请输入消息内容')
+      } else {
+        const { data } = await this.$axios.post(
+          comm.baseUrl + '/bk/leavemessage/reply', 
+          { leavemessageId: _id, content: txt } 
+        )
+        if(data && data.code === 0) {
+          this.$message({
+            message: data.msg,
+            type: 'success'
+          })
+          this.get_comments()
+          this.currCommentShow = null
+        } else {
+          this.$message.error(data.msg)
+        }
+      }
+    },
+    // 获取评论
+    async get_comments() {
+      const { data } = await this.$axios.get(
+        comm.baseUrl + '/bk/leavemessage/get_comments', 
+         {
+           params: {
+            page: this.page,
+            page_size: this.page_size
+           }
+        } 
+      )
+      if(data && data.code === 0) {
+        this.total = data.total
+        this.list = data.data
+      } else {
+        this.$message.error(data.msg)
+      }
     }
   }
 };
 </script>
  
  <style lang="scss">
- #leave-words {
+ .comment_content {
     .box-card {
       margin-bottom: 10px;
       .comments_header_box {
@@ -196,9 +248,11 @@ export default {
             padding: 10px 0;
           }
           .comments_index {
-            padding: 15px;
-            min-height: 110px;
-            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            margin-left: 20px;
+            padding-right: 0;
+            min-height: 84px;
+            border-bottom: 1px solid #eaeaea;
             display: grid;
             grid-template-columns: 8% 92%;
             grid-template-rows: 100%;
@@ -219,25 +273,35 @@ export default {
             .text_box {
               .user_info_box {
                 padding: 2px 0;
+                display: flex;
+                justify-content: space-between;
                 .user_name {
                   font-weight: 700;
+                }
+                .user_create_time {
+                  float: right;
+                  margin-right: 10px;
+                  color: #636363;
+                  font-size: 14px;
                 }
               }
             }
             .reply_box {
-              padding: 10px 0;
+              margin-left: -24px;
+              padding: 15px 0;
+              padding-bottom: 0px;
               .comments_index_reply {
-                border-top: 1px solid #ddd;
+                // border-top: 1px solid #ddd;
                 grid-template-columns: 9% 91%;
                 border-bottom: none;
+                margin-right: 0;
                 .portrait_box {
                   margin-top: 3px;
                 }
               }
               .reply_oper_box {
                 display: flex;
-                border-top: 1px solid #ddd;
-                
+                // border-top: 1px solid #ddd;
                 div {
                   cursor: pointer;
                   font-size: 12px;

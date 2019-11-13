@@ -1,35 +1,41 @@
 <template>
   <div class="rankings_box">
     <div class="rank_left">
-      <div class="img_box">
-        <img src="http://jxhx2.yangqq.com/skin/jxhx/images/4.jpg" alt="">
+      <div
+        class="img_box"
+        @click="goToLink('/detail?id=' + list[0]._id)">
+        <img :src="list[0]? list[0].imageUrl: null">
+        <p class="titles">{{ list[0].title | cur_txt }}</p>
       </div>
-      <div class="img_box">
-        <img src="http://jxhx2.yangqq.com/skin/jxhx/images/2.jpg" alt="">
+      <div 
+        class="img_box"
+        @click="goToLink('/detail?id=' + list[1]._id)">
+        <img :src="list[1]? list[1].imageUrl: null">
+        <p class="titles">{{ list[1].title | cur_txt }}</p>
       </div>
     </div>
     <div class="rank_right">
       <el-collapse v-model="activeName" accordion>
         <el-collapse-item 
-          v-for="(item, idx) in rankingList" 
-          :key="item.id + new Date().getTime()" 
-          :name="item.id"
+          v-for="(item, idx) in list" 
+          :key="item._id + new Date().getTime()" 
+          :name="idx + 1"
           >
           <template slot="title" >
             <div 
               class="rank_title"
-              @click="goToLink(item.url)"
-              @mouseenter="changeactive(item.id)"
+              @click="goToLink('/detail?id=' + item._id)"
+              @mouseenter="changeactive(idx + 1)"
               >
                 <span class="rank_idx">{{idx + 1}}</span>
                 {{ item.title }}
               </div> 
           </template>
           <div 
-            @click="changeactive(item.id)" 
+            @click="changeactive(idx + 1)" 
             class="desc_box" 
-            :title="item.desc"
-          >{{ item.desc }}
+            :title="item.info"
+          >{{ item.info }}
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -39,6 +45,21 @@
 
 <script>
 export default {
+  props: {
+    list: {
+      type: Array,
+      default: []
+    }
+  },
+  filters: {
+    cur_txt(val) {
+      if (val.length > 15) {
+        return val.slice(0, 15) + '...'
+      } else {
+        return val
+      }
+    }
+  },
   data() {
     return {
       activeName: 1,
@@ -83,8 +104,7 @@ export default {
     },
     // 链接跳转
     goToLink(url) {
-      // this.$router.push({path:'路径'})
-      location.href = url
+      this.$router.push({ path: url })
     }
   }
 }
@@ -121,6 +141,7 @@ export default {
       margin: 10px 15px;
       border-radius: 5px;
       overflow: hidden;
+      cursor: pointer;
       .titles {
         position: absolute;
         color: #fff;

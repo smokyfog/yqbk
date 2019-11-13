@@ -151,6 +151,7 @@ export default {
             position: relative;
             margin: 20px;
             overflow: hidden;
+            border-radius: 6px;
             img {
               width: 100%;
               height: 100%;
@@ -184,8 +185,8 @@ export default {
               overflow: hidden;
               text-overflow: ellipsis;
               display: -webkit-box;
-              -webkit-line-clamp: 3;
-              line-clamp: 3;
+              -webkit-line-clamp: 2;
+              line-clamp: 2;
               -webkit-box-orient: vertical;
             }
             .article_infos {

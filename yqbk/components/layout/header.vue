@@ -205,7 +205,7 @@ export default {
     // background: rgb(34, 34, 34);
     background: #fff;
     opacity: 0.95;
-    // box-shadow: 0 2px 6px 0 rgba(0,0,0,.17);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     #header_content {
       width: 1200px;
       margin: auto;

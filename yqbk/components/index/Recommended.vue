@@ -3,14 +3,14 @@
     <div class="clearfix header">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane class="rank_content" label="最热排行" name="first">
-          <Ranking />
+          <Ranking :list="hotrank"/>
         </el-tab-pane>
         <el-tab-pane class="rank_content" label="最新排行" name="second">
-          <Ranking />
+          <Ranking :list="newrank" />
         </el-tab-pane>
-        <el-tab-pane class="rank_content" label="最多评论" name="third">
+        <!-- <el-tab-pane class="rank_content" label="最多评论" name="third">
           <Ranking />
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>
@@ -20,6 +20,16 @@
 import Ranking from "./ranking.vue"
 
 export default {
+  props: {
+    hotrank: {
+      type: Array,
+      default: []
+    },
+    newrank: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {
       activeName: 'first'

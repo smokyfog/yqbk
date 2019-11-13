@@ -23,4 +23,14 @@ router.get('/get_article_list', async (ctx) => {
   ctx.body = data
 })
 
+// 获取各种排行
+router.get('/get_rank_list', async (ctx) => {
+  const param = ctx.query
+  const { data } = await request.get(
+    comm.baseUrl + '/bk/article/get_rank_list', {
+      params: param
+    })
+  ctx.body = data
+})
+
 module.exports = router

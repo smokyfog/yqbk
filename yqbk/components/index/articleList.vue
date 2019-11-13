@@ -1,39 +1,41 @@
  <template>
-  <div id="article_list">
+  <div id="article_lists">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>文章推荐</span>
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="item_box">
-        <div v-for="item in article_list"  :key="item.create_time + new Date().getTime()" class="article_box" >
-          <div class="article_img_box">
-            <img :src="item.image" :alt="item.image">
-          </div>
-          <div class="article_info_box">
-            <h3 class="articl_title">{{ item.title }}</h3>
-            <p class="articl_desc">
-              {{ item.desc }}
-            </p>
-            <div class="article_infos">
-              <span>
-                <i class="fa fa-user"></i>
-                <span>{{ item.owner }}</span>
-              </span>
-              <span>
-                <i class="fa fa-mortar-board"></i>
-                <span>{{ item.field }}</span>
-              </span>
-              <span>
-                <i class="fa fa-eye"></i>
-                <span>{{ item.viewed }}次浏览</span>
-              </span>
-              <span>
-                <i class="fa fa-calendar-o"></i>
-                <span>{{ item.create_time }}</span>
-              </span>
+        <div v-for="item in article"  :key="item._id + new Date().getTime()" >
+          <nuxt-link :to="'/detail?id=' + item._id" class="article_box" >
+            <div class="article_img_box">
+              <img :src="item.imageUrl" :alt="item.imageUrl">
             </div>
-          </div>
+            <div class="article_info_box">
+              <h3 class="articl_title">{{ item.title }}</h3>
+              <p class="articl_desc">
+                {{ item.info }}
+              </p>
+              <div class="article_infos">
+                <span>
+                  <i class="fa fa-user"></i>
+                  <span>{{ item.userinfo.nickname }}</span>
+                </span>
+                <span>
+                  <i class="fa fa-mortar-board"></i>
+                  <span>{{ '未分类' }}</span>
+                </span>
+                <span>
+                  <i class="fa fa-eye"></i>
+                  <span>{{ item.browseCount }}次浏览</span>
+                </span>
+                <span>
+                  <i class="fa fa-calendar-o"></i>
+                  <span>{{ item.create_time | formatDate }}</span>
+                </span>
+              </div>
+            </div>
+          </nuxt-link>
         </div>
         
       </div>
@@ -43,6 +45,21 @@
  
  <script>
 export default {
+  filters: {
+    formatDate(val) {
+      try {
+        return val ? new Date(val).toLocaleString() : '未知'
+      } catch (err) {  
+        return val
+      }
+    }
+  },
+  props: {
+    article: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {
       article_list: [
@@ -143,7 +160,7 @@ export default {
 </script>
  
  <style lang="scss">
- #article_list {
+ #article_lists {
     .box-card {
       margin-bottom: 10px;
       .el-card__header {
@@ -175,6 +192,7 @@ export default {
             position: relative;
             margin: 20px;
             overflow: hidden;
+            border-radius: 6px;
             img {
               width: 100%;
               height: 100%;
@@ -208,8 +226,8 @@ export default {
               overflow: hidden;
               text-overflow: ellipsis;
               display: -webkit-box;
-              -webkit-line-clamp: 3;
-              line-clamp: 3;
+              -webkit-line-clamp: 2;
+              line-clamp: 2;
               -webkit-box-orient: vertical;
             }
             .article_infos {

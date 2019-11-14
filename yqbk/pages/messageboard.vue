@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span="6">
         <div class="container_right">
-          <side-list />
+          <side-list :comments="commentslist"/>
           <Link />
         </div>
       </el-col>
@@ -18,13 +18,38 @@
 
 <script>
 import Link from '~/components/index/friendlyLink.vue'
-import sideList from '~/components/index/sideList.vue'
+import sideList from '~/components/layout/sideList.vue'
 import leaveWords from '~/components/comment/leaveWords.vue'
 export default {
+  data() {
+    return {
+      commentslist: []
+    }
+  },
   components: {
     Link,
     sideList,
     leaveWords
+  },
+  async asyncData(ctx) {
+    let datas = []
+    // 获取最多评论排行
+    let commentslist = await ctx.$axios.get(
+      '/api/article/get_rank_list',
+      {
+        params: {
+          page_size: 8, 
+          type: 'comments',
+          order: -1
+        }
+      }
+    ).catch(err => {
+      datas.commentslist = []
+    })
+    if (commentslist && commentslist.data && commentslist.data.code === 0) {
+      datas.commentslist = commentslist.data.data
+    }
+    return datas
   }
 }
 </script>

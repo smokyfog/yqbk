@@ -6,20 +6,29 @@
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="text side_content">
-        <div class="img_box">
-          <img :src="list[0].image" alt="">
-          <p class="titles">{{ list[0].title }}</p>
-        </div>
+        <nuxt-link 
+          :to="'/detail?id=' + comments[0] ? comments[0]._id: ''">
+          <div class="img_box">
+            <img :src="comments[0] ? comments[0].imageUrl: ''" alt="">
+            <p class="titles">{{ comments[0].title }}</p>
+          </div>
+        </nuxt-link>
         <ul class="article_list clear_fix" >
-          <li class="side_li" v-for="(item, idx) in list" :key="item.desc + idx">
-            <aside>
-              <div>
-                <img :src="item.image" alt="">
-              </div>
-            </aside>
-            <article>
-              <p :title="item.desc">{{ item.desc }}</p>
-            </article>
+          <li
+            v-show="idx!==0"
+            v-for="(item, idx) in comments" 
+            :key="item._id + Math.random()"
+          >
+            <nuxt-link :to="'/detail?id=' + item._id" class="side_li">
+              <aside >
+                <div>
+                  <img :src="item.imageUrl" alt="">
+                </div>
+              </aside>
+              <article>
+                <p :title="item.info">{{ item.info }}</p>
+              </article>
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -29,6 +38,18 @@
  
  <script>
 export default {
+  props: {
+    comments: {
+      type: Array,
+      default: [
+        {
+          detail: {
+
+          }
+        }
+      ]
+    }
+  },
   data() {
     return {
       list: [

@@ -14,7 +14,7 @@
       </el-col>
       <el-col :span="6">
         <div class="container_right">
-          <side-list />
+          <side-list :comments="commentslist"/>
           <Link />
         </div>
       </el-col>
@@ -29,7 +29,7 @@ import footerRecom from '~/components/detail/footerRecom.vue'
 import Link from '~/components/index/friendlyLink.vue'
 import Recom from '~/components/index/Recommended.vue'
 import myCard from '~/components/index/myCard.vue'
-import sideList from '~/components/index/sideList.vue'
+import sideList from '~/components/layout/sideList.vue'
 import Breadcrumb from '~/components/layout/breadcrumb.vue'
 import articleComments from '~/components/detail/articleComments.vue'
 
@@ -50,7 +50,8 @@ export default {
           url: 'http://www.zbboke.com/templets/boke/picture/banner_1.jpg'
         }
       ],
-      detail: {}
+      detail: {},
+      commentslist: []
     }
   },
   components: {
@@ -66,6 +67,7 @@ export default {
   },
   async asyncData(ctx) {
     const id = ctx.query.id
+    let datas = []
     let { data } = await ctx.$axios.get('/api/article/get_article_detail', 
     {
       params : {
@@ -73,10 +75,27 @@ export default {
       }
     })
     if (data && data.code === 0) {
-      return {
-        detail: data.data
-      }
+      datas.detail = data.data
     }
+
+    // 获取最多评论排行
+    let commentslist = await ctx.$axios.get(
+      '/api/article/get_rank_list',
+      {
+        params: {
+          page_size: 8, 
+          type: 'comments',
+          order: -1
+        }
+      }
+    ).catch(err => {
+      datas.commentslist = []
+    })
+    if (commentslist && commentslist.data && commentslist.data.code === 0) {
+      datas.commentslist = commentslist.data.data
+    }
+
+    return datas
   }
 }
 </script>

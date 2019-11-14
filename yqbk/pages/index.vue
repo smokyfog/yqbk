@@ -26,7 +26,7 @@
       <el-col :span="6">
         <div class="container_right">
           <my-card />
-          <side-list />
+          <side-list :comments="commentslist"/>
           <Link />
         </div>
       </el-col>
@@ -49,7 +49,8 @@ export default {
       hot: [],
       article: [],
       hotRank: [],
-      newRank: []
+      newRank: [],
+      comments: []
     }
   },
   components: {
@@ -134,8 +135,25 @@ export default {
     if (newRank && newRank.data && newRank.data.code === 0) {
       datas.newRank = newRank.data.data
     }
-    return datas
+    // 获取最多评论排行
+    let commentslist = await ctx.$axios.get(
+      '/api/article/get_rank_list',
+      {
+        params: {
+          page_size: 8, 
+          type: 'comments',
+          order: -1
+        }
+      }
+    ).catch(err => {
+      datas.commentslist = []
+    })
+    if (commentslist && commentslist.data && commentslist.data.code === 0) {
+      datas.commentslist = commentslist.data.data
+    }
     console.log(datas)
+    return datas
+    
   }
 }
 </script>

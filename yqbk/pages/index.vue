@@ -26,7 +26,7 @@
       <el-col :span="6">
         <div class="container_right">
           <my-card />
-          <side-list :comments="commentslist"/>
+          <side-list v-if="commentslist.length" :comments="commentslist"/>
           <Link />
         </div>
       </el-col>
@@ -50,7 +50,8 @@ export default {
       article: [],
       hotRank: [],
       newRank: [],
-      comments: []
+      comments: [],
+      commentslist: []
     }
   },
   components: {
@@ -151,7 +152,6 @@ export default {
     if (commentslist && commentslist.data && commentslist.data.code === 0) {
       datas.commentslist = commentslist.data.data
     }
-    console.log(datas)
     return datas
     
   }

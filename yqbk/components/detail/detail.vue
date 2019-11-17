@@ -123,7 +123,11 @@ export default {
     .item_box {
       .detail_box {
         min-height: 200px;
-        padding: 30px
+        padding: 30px;
+        img {
+          text-align: center;
+          max-width: 100%;
+        }
       }
       .detail_related {
         .article_oper_box {

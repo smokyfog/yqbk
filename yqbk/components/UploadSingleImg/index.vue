@@ -15,7 +15,7 @@
 </template>
 
 <script>
-// import comm from '~/server/comm'
+import comm from '~/static/comm.js'
 export default {
   props: {
     image_url: {
@@ -26,15 +26,16 @@ export default {
   },
   data() {
     return {
-      uploadUrl: `/bk/users/user_upload_portrait`
+      uploadUrl: `${comm.baseUrl}/bk/users/user_upload_portrait`
     }
   },
   methods: {
     handleAvatarSuccess(res, file) {
       if (res.code === 0) {
         const imageUrl = res.url
+        const imagePath = res.path
         // this.image_url = imageUrl
-        this.$emit('change_img', imageUrl)
+        this.$emit('change_img', imageUrl, imagePath)
         this.$message({
           type: 'success',
           message: res.msg

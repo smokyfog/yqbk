@@ -109,7 +109,6 @@ export default {
       .catch(err => {
         this.$message.error('请求出错')
       })
-      console.log(res.data)
       if (res.data && res.data.code === 0) {
         this.setUserInfo(res.data.data)
         this.$message({

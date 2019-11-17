@@ -78,6 +78,7 @@ export default {
       ruleForm: {
         name: '',
         image_url: '',
+        imagePath: '',
         password: '',
         checkPass: '',
         desc: '',
@@ -125,7 +126,7 @@ export default {
           data.nickname = this.ruleForm.name
           data.email = this.ruleForm.email
           data.desc = this.ruleForm.desc
-          data.portrait = this.ruleForm.image_url
+          data.portrait = this.ruleForm.imagePath
           this.reqSubmit(data)
         } else {
           return false;
@@ -156,8 +157,9 @@ export default {
       this.$refs[formName].resetFields();
     },
     // 修改头像
-    change_img(image_url) {
+    change_img(image_url,imagePath) {
       this.ruleForm.image_url = image_url
+      this.ruleForm.imagePath = imagePath
     },
     // 登陆
     handleLogin() {

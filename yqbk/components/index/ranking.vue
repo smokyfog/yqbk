@@ -5,13 +5,13 @@
         class="img_box"
         @click="goToLink('/detail?id=' + list[0]._id)">
         <img :src="list[0]? list[0].imageUrl: null">
-        <p class="titles">{{ list[0].title | cur_txt }}</p>
+        <p class="titles">{{ list[0] && list[0].title | cur_txt }}</p>
       </div>
       <div 
         class="img_box"
         @click="goToLink('/detail?id=' + list[1]._id)">
         <img :src="list[1]? list[1].imageUrl: null">
-        <p class="titles">{{ list[1].title | cur_txt }}</p>
+        <p class="titles">{{ list[1] && list[1].title | cur_txt }}</p>
       </div>
     </div>
     <div class="rank_right">
@@ -53,6 +53,9 @@ export default {
   },
   filters: {
     cur_txt(val) {
+      if (!Array.isArray(val)) {
+        return ''
+      }
       if (val.length > 15) {
         return val.slice(0, 15) + '...'
       } else {

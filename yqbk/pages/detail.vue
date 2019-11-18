@@ -105,6 +105,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../assets/content.scss';
 .detail {
   #banner_box {
     .el-carousel__item h3 {

@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span="6">
         <div class="container_right">
-          <side-list :comments="commentslist"/>
+          <side-list :comments="randomlist">文章推荐</side-list>
           <Link />
         </div>
       </el-col>
@@ -23,7 +23,7 @@ import leaveWords from '~/components/comment/leaveWords.vue'
 export default {
   data() {
     return {
-      commentslist: []
+      randomlist: []
     }
   },
   components: {
@@ -32,22 +32,22 @@ export default {
     leaveWords
   },
   async asyncData(ctx) {
-    let datas = []
+    let datas = {}
     // 获取最多评论排行
-    let commentslist = await ctx.$axios.get(
+    let randomlist = await ctx.$axios.get(
       '/api/article/get_rank_list',
       {
         params: {
           page_size: 8, 
-          type: 'comments',
+          type: 'random',
           order: -1
         }
       }
     ).catch(err => {
-      datas.commentslist = []
+      datas.randomlist = []
     })
-    if (commentslist && commentslist.data && commentslist.data.code === 0) {
-      datas.commentslist = commentslist.data.data
+    if (randomlist && randomlist.data && randomlist.data.code === 0) {
+      datas.randomlist = randomlist.data.data
     }
     return datas
   }

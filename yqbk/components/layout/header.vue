@@ -46,8 +46,9 @@
             size="small"
             placeholder="请输入搜索的内容"
             suffix-icon="el-icon-search"
-            v-model="search_text">
-          </el-input>
+            v-model="search_text"
+            @keyup.enter.native="goToSearch"
+          />
         </div>
         <div id="header_user_info">
           <div v-if="userInfo._id" class="user_info_box" >
@@ -180,6 +181,16 @@ export default {
           this.$message.error(data.msg)
         }
       }
+    },
+    // 搜索
+    goToSearch() {
+      console.log('search')
+      this.$router.push({
+        path: '/search',
+        query: {
+          keywords: this.search_text
+        }
+      })
     }
   },
   watch: {
@@ -189,7 +200,10 @@ export default {
       },
       // 深度观察监听
       deep: true
-    }
+    },
+    // '$route' (to, from) {
+    //     this.$router.go(0);
+    // }
   }
 }
 </script>

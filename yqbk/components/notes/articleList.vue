@@ -2,7 +2,7 @@
   <div id="article_list">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>心情笔记</span>
+        <span><slot /></span>
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="item_box">

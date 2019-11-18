@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="share_container">
     <el-row id="container_main" :gutter="20">
       <el-col :span="18">
         <div class="container_left">
@@ -10,12 +10,12 @@
             :pagesize="page_size"
             :list="articlelist"
             @changedata="change_data"
-          >心情笔记</Article>
+          >搜索</Article>
         </div>
       </el-col>
       <el-col :span="6">
         <div class="container_right">
-          <side-list :comments="newslist">最新排行</side-list>
+          <side-list :comments="randomlist">文章推荐</side-list>
           <Link />
         </div>
       </el-col>
@@ -34,12 +34,12 @@ import sideList from '~/components/layout/sideList.vue'
 export default {
   data() {
     return {
-      type: 1,
+      type: 10,
       total: 0,
       page_size: 20,
       page: 1,
       articlelist: [],
-      newslist: []
+      randomlist: []
     }
   },
   components: {
@@ -50,6 +50,11 @@ export default {
     myCard,
     sideList
   },
+  watch: {
+    $route (to, from) {
+      this.$router.go(0)
+    }
+  },
   methods: {
     change_data(key, data) {
       this[key] = data
@@ -59,7 +64,7 @@ export default {
     const param = {
       page_size: 20,
       page: 1,
-      type: 1,
+      type: 10,
     }
     let datas = {}
     let { data } = await ctx.$axios.get('/api/article/get_article_list', 
@@ -70,31 +75,30 @@ export default {
       datas.articlelist = data.data
       datas.total = data.total
     }
-    
+
     // 获取最多评论排行
-    let newslist = await ctx.$axios.get(
+    let randomlist = await ctx.$axios.get(
       '/api/article/get_rank_list',
       {
         params: {
           page_size: 8, 
-          type: 'news',
+          type: 'random',
           order: -1
         }
       }
     ).catch(err => {
-      datas.newslist = []
+      datas.randomlist = []
     })
-    if (newslist && newslist.data && newslist.data.code === 0) {
-      datas.newslist = newslist.data.data
+    if (randomlist && randomlist.data && randomlist.data.code === 0) {
+      datas.randomlist = randomlist.data.data
     }
-
     return datas
   }
 }
 </script>
 
 <style lang="scss">
-.container {
+.share_container {
   #banner_box {
     .el-carousel__item h3 {
       color: #475669;

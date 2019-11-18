@@ -10,12 +10,12 @@
             :pagesize="page_size"
             :list="articlelist"
             @changedata="change_data"
-          />
+          >技术分享</Article>
         </div>
       </el-col>
       <el-col :span="6">
         <div class="container_right">
-          <side-list :comments="commentslist"/>
+          <side-list :comments="randomlist">文章推荐</side-list>
           <Link />
         </div>
       </el-col>
@@ -39,7 +39,7 @@ export default {
       page_size: 20,
       page: 1,
       articlelist: [],
-      commentslist: []
+      randomlist: []
     }
   },
   components: {
@@ -61,7 +61,7 @@ export default {
       page: 1,
       type: 10,
     }
-    let datas = []
+    let datas = {}
     let { data } = await ctx.$axios.get('/api/article/get_article_list', 
     {
       params: param
@@ -72,20 +72,20 @@ export default {
     }
 
     // 获取最多评论排行
-    let commentslist = await ctx.$axios.get(
+    let randomlist = await ctx.$axios.get(
       '/api/article/get_rank_list',
       {
         params: {
           page_size: 8, 
-          type: 'comments',
+          type: 'random',
           order: -1
         }
       }
     ).catch(err => {
-      datas.commentslist = []
+      datas.randomlist = []
     })
-    if (commentslist && commentslist.data && commentslist.data.code === 0) {
-      datas.commentslist = commentslist.data.data
+    if (randomlist && randomlist.data && randomlist.data.code === 0) {
+      datas.randomlist = randomlist.data.data
     }
     return datas
   }

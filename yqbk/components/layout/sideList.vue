@@ -2,7 +2,7 @@
   <div id="side_list">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>点击排行</span>
+        <span><slot /></span>
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="text side_content">

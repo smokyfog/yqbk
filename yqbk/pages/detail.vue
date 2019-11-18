@@ -65,9 +65,14 @@ export default {
     footerRecom,
     articleComments
   },
+  watch: {
+    $route (to, from) {
+      this.$router.go(0)
+    }
+  },
   async asyncData(ctx) {
     const id = ctx.query.id
-    let datas = []
+    let datas = {}
     let { data } = await ctx.$axios.get('/api/article/get_article_detail', 
     {
       params : {
@@ -94,7 +99,6 @@ export default {
     if (commentslist && commentslist.data && commentslist.data.code === 0) {
       datas.commentslist = commentslist.data.data
     }
-
     return datas
   }
 }

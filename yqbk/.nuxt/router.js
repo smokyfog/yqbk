@@ -3,13 +3,14 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _5f3e08d5 = () => interopDefault(import('../pages/about-blog.vue' /* webpackChunkName: "pages/about-blog" */))
-const _4ed7268b = () => interopDefault(import('../pages/about-me.vue' /* webpackChunkName: "pages/about-me" */))
-const _3bcbd944 = () => interopDefault(import('../pages/detail.vue' /* webpackChunkName: "pages/detail" */))
-const _4410a4f2 = () => interopDefault(import('../pages/messageboard.vue' /* webpackChunkName: "pages/messageboard" */))
-const _03b3529e = () => interopDefault(import('../pages/notes.vue' /* webpackChunkName: "pages/notes" */))
-const _3a3494bc = () => interopDefault(import('../pages/share.vue' /* webpackChunkName: "pages/share" */))
-const _685ebc2f = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _e65f4e02 = () => interopDefault(import('..\\pages\\about-blog.vue' /* webpackChunkName: "pages_about-blog" */))
+const _3b990d96 = () => interopDefault(import('..\\pages\\about-me.vue' /* webpackChunkName: "pages_about-me" */))
+const _26de6324 = () => interopDefault(import('..\\pages\\detail.vue' /* webpackChunkName: "pages_detail" */))
+const _564f929c = () => interopDefault(import('..\\pages\\messageboard.vue' /* webpackChunkName: "pages_messageboard" */))
+const _f573df98 = () => interopDefault(import('..\\pages\\notes.vue' /* webpackChunkName: "pages_notes" */))
+const _0006cf76 = () => interopDefault(import('..\\pages\\search.vue' /* webpackChunkName: "pages_search" */))
+const _88715b5c = () => interopDefault(import('..\\pages\\share.vue' /* webpackChunkName: "pages_share" */))
+const _2c1d0c76 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
 
@@ -22,31 +23,35 @@ export const routerOptions = {
 
   routes: [{
     path: "/about-blog",
-    component: _5f3e08d5,
+    component: _e65f4e02,
     name: "about-blog"
   }, {
     path: "/about-me",
-    component: _4ed7268b,
+    component: _3b990d96,
     name: "about-me"
   }, {
     path: "/detail",
-    component: _3bcbd944,
+    component: _26de6324,
     name: "detail"
   }, {
     path: "/messageboard",
-    component: _4410a4f2,
+    component: _564f929c,
     name: "messageboard"
   }, {
     path: "/notes",
-    component: _03b3529e,
+    component: _f573df98,
     name: "notes"
   }, {
+    path: "/search",
+    component: _0006cf76,
+    name: "search"
+  }, {
     path: "/share",
-    component: _3a3494bc,
+    component: _88715b5c,
     name: "share"
   }, {
     path: "/",
-    component: _685ebc2f,
+    component: _2c1d0c76,
     name: "index"
   }],
 

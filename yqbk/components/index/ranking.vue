@@ -53,7 +53,7 @@ export default {
   },
   filters: {
     cur_txt(val) {
-      if (!Array.isArray(val)) {
+      if (Array.isArray(val)) {
         return ''
       }
       if (val.length > 15) {

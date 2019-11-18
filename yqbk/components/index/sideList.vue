@@ -2,12 +2,12 @@
   <div id="side_list">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>点击排行</span>
+        <span>评论排行</span>
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="text side_content">
         <nuxt-link 
-          :to="'/detail?id=' + comments[0] ? comments[0]._id: ''">
+          :to="`/detail?id=${comments[0] && comments[0]._id}`">
           <div class="img_box">
             <img :src="comments[0] ? comments[0].imageUrl: ''" alt="">
             <p class="titles">{{ comments[0] && comments[0].title }}</p>

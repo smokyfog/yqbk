@@ -6,7 +6,7 @@
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
       </div>
       <div class="item_box">
-        <div v-for="item in list"  :key="item._id + new Date().getTime()">
+        <div v-show="list.length" v-for="item in list"  :key="item._id + new Date().getTime()">
           <nuxt-link :to="'/detail?id=' + item._id" class="article_box">
             <div class="article_img_box">
               <img :src="item.imageUrl" :alt="item.title">
@@ -37,9 +37,12 @@
             </div>
           </nuxt-link>
         </div>
-
+        <div v-show="!list.length">
+          <p class="tips_box">抱歉，未查询到数据</p>
+        </div>
         <div class="pagination_box">
           <el-pagination
+            v-if="list.length>0"
             background
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -73,11 +76,15 @@ export default {
     },
     type: {
       type: Number,
-      default: 1
+      default: 0
     },
     list: {
       type: Array,
       default: []
+    },
+    keywords: {
+      type: String,
+      default: ''
     }
   },
   filters: {
@@ -100,12 +107,18 @@ export default {
       await this.getData()
     },
     async getData() {
+      let params = {
+        page: this.page,
+        page_size: this.pagesize,
+      }
+      if (this.type) {
+        params.type = this.type
+      }
+      if (this.keywords) {
+        params.search_title = this.keywords
+      }
       const { data } = await axios.get('/api/article/get_article_list',{
-        params: {
-          page: this.page,
-          page_size: this.pagesize,
-          type: this.type
-        }
+        params
       })
       .catch(err => {
         this.$message.error('请求错误')
@@ -131,6 +144,11 @@ export default {
       }
       .item_box {
         min-height: 300px;
+        .tips_box {
+          text-align: center;
+          padding: 30px;
+          font-size: 16px;
+        }
         .article_box:hover {
           transition: all 0.5s;
           background-color: #f7f7f7;

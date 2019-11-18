@@ -110,6 +110,9 @@ export default {
   created() {
     this.handlers()
     this.getUserInfo()
+    if (this.$route.query.keywords) {
+      this.search_text = this.$route.query.keywords
+    }
   },
   methods: {
     ...mapActions('user', {
@@ -184,13 +187,14 @@ export default {
     },
     // 搜索
     goToSearch() {
-      console.log('search')
-      this.$router.push({
-        path: '/search',
-        query: {
-          keywords: this.search_text
-        }
-      })
+      if (this.search_text || this.search_text === 0) {
+        this.$router.push({
+          path: '/search',
+          query: {
+            keywords: this.search_text
+          }
+        })
+      }
     }
   },
   watch: {

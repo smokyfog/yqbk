@@ -9,8 +9,10 @@
             :total="total"
             :pagesize="page_size"
             :list="articlelist"
+            :keywords="keywords"
             @changedata="change_data"
           >搜索</Article>
+
         </div>
       </el-col>
       <el-col :span="6">
@@ -34,12 +36,13 @@ import sideList from '~/components/layout/sideList.vue'
 export default {
   data() {
     return {
-      type: 10,
+      type: 0,
       total: 0,
-      page_size: 20,
+      page_size: 5,
       page: 1,
       articlelist: [],
-      randomlist: []
+      randomlist: [],
+      keywords: ''
     }
   },
   components: {
@@ -49,6 +52,9 @@ export default {
     Article,
     myCard,
     sideList
+  },
+  created() {
+    this.keywords = this.$route.query.keywords
   },
   watch: {
     $route (to, from) {
@@ -62,9 +68,11 @@ export default {
   },
   async asyncData(ctx) {
     const param = {
-      page_size: 20,
-      page: 1,
-      type: 10,
+      page_size: 5,
+      page: 1
+    }
+    if (ctx.route.query.keywords) {
+      param.search_title = ctx.route.query.keywords
     }
     let datas = {}
     let { data } = await ctx.$axios.get('/api/article/get_article_list', 

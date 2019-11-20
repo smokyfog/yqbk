@@ -30,14 +30,21 @@
         </div>
         <div class="detail_related">
           <div class="article_oper_box clearfix">
-            <div class="praise">
-              顶一下（1）
+            <div
+              class="praise"
+              :class="{ 'active': islike }"
+              @click="likeArticle"
+            >
+              顶一下（{{ detail.likeCount }}）
             </div>
             <div class="admire">
               赏
             </div>
-            <div class="belittling">
-              踩一下（1）
+            <div class="belittling"
+              :class="{ 'active': isdislike }"
+              @click="dislikeArticle"
+            >
+              踩一下（{{ detail.dislikeCount }}）
             </div>
           </div>
           <div class="detail_footer">
@@ -59,11 +66,12 @@
 </template>
  
  <script>
+ import comm from '~/static/comm.js'
 export default {
   props: {
     detail: {
       type: Object,
-      default: {}
+      default: {},
     }
   },
   filters: {
@@ -74,15 +82,84 @@ export default {
   data() {
     return {
       data : {
-        title: '运算符的作用以及用法的笔记',
-        owner: '闫强',
-        field: '技术 前端开发 js',
-        create_time: '2019-10-16',
-        viewed: 999,
-        image: 'http://www.zbboke.com/uploads/170930/1-1F93009532O46.jpg',
-        url: 'https://github.com/smokyfog'
-      }
+        title: '',
+        owner: '',
+        field: '',
+        create_time: '',
+        viewed: 0,
+        image: '',
+        url: '',
+      },
+      islike: false,
+      isdislike: false
     };
+  },
+  mounted() {
+    this.get_eval_article_status()
+  },
+  methods: {
+    likeArticle() {
+      if (this.islike || this.isdislike) {
+        this.$message({
+          message: '您已经评价过了哦',
+          type: 'warning'
+        })
+      } else {
+        this.eval_article('like')
+      }
+    },
+    dislikeArticle() {
+      if (this.islike || this.isdislike) {
+        this.$message({
+          message: '您已经评价过了哦',
+          type: 'warning'
+        })
+      } else {
+        this.eval_article('dislike')
+      }
+    },
+    async get_eval_article_status() {
+      const articleId = this.$route.query.id
+      const { data } = await this.$axios.get(
+        comm.baseUrl + '/bk/article/get_eval_article_status', 
+         {
+           params: {
+             articleId
+           }
+        } 
+      )
+      if (data && data.code === 0) {
+        this.islike = data.data.like
+        this.isdislike = data.data.dislike
+      }
+    },
+    async eval_article(type = 'like') {
+      const articleId = this.$route.query.id
+      const { data } = await this.$axios.post(
+        comm.baseUrl + '/bk/article/eval_article', 
+         {
+            articleId,
+            type
+        } 
+      )
+      if (data && data.code === 0) {
+        if (type == 'like') {
+          this.detail.likeCount += 1
+        }
+        if (type == 'dislike') {
+          this.detail.dislikeCount += 1
+        }
+        this.$message({
+          message: '评价成功！',
+          type: 'success'
+        })
+      } else {
+        this.$message({
+          message: data.msg,
+          type: 'warning'
+        })
+      }
+    }
   }
 };
 </script>
@@ -150,6 +227,7 @@ export default {
             background: #e15782 none;
             height: 35px;
             width: 135px;
+            cursor: pointer;
           }
           .belittling {
             left: 450px;
@@ -157,6 +235,7 @@ export default {
             background: #37ccca none repeat scroll 0 0;
             height: 35px;
             width: 135px;
+            cursor: pointer;
           }
           .admire {
             position: absolute;
@@ -175,6 +254,9 @@ export default {
             // position: absolute;
             // top: -7px;
             width: 50px;
+          }
+          .active {
+            background: #969696
           }
         }
       }

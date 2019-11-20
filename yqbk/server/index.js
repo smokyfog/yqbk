@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const consola = require('consola')
+const session = require('koa-session')
 const { Nuxt, Builder } = require('nuxt')
 
 const app = new Koa()
@@ -8,6 +9,19 @@ const koaBody = require('koa-body')
 const config = require('../nuxt.config.js')
 const banner = require('./interface/banner')
 const article = require('./interface/article')
+
+const CONFIG = {
+  key: 'koa:sess',
+  maxAge: 86400000,
+  credentials: 'include',
+  overwrite: true,
+  httpOnly: true,
+  signed: true,
+  rolling: false,
+  renew: false
+}
+app.use(session(CONFIG, app))
+
 const comments = require('./interface/comments')
 config.dev = app.env !== 'production'
 // koaBody 用于上传

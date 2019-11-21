@@ -10,11 +10,13 @@
       </div>
       <div class="text footer_recom_box">
         <div class="recom_img_box">
-          <div class="recom_transition_box" v-for="item in list" :key="item.field + Math.random()">
-            <div class="img_box">
-              <img :src="item.image" alt="">
-            </div>
-            <p class="titles">{{ item.desc }}</p>
+          <div class="recom_transition_box" v-for="item in list" :key="item._id + Math.random()">
+            <nuxt-link :to="'/detail?id=' + item._id">
+              <div class="img_box">
+                <img :src="item.imageUrl" alt="">
+              </div>
+              <p class="titles">{{ item.info }}</p>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -24,50 +26,56 @@
  
  <script>
 export default {
+  props: {
+    list: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {
-      list: [
-        {
-          title: '运算符的作用以及用法的笔记',
-          desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
-          owner: '闫强',
-          field: '技术 前端开发 js',
-          create_time: '2019-10-16',
-          viewed: 999,
-          image: 'http://jxhx2.yangqq.com/skin/jxhx/images/4.jpg',
-          url: 'https://github.com/smokyfog'
-        },
-        {
-          title: 'dedecms图片集调用代码',
-          desc: `重点要注意：dede:fieldname='imgurls'不能二次使用，如果二次使用会自动使用下面的样式，所以大家一定要注意这一点...`,
-          owner: '闫强',
-          field: '技术 前端开发 js',
-          create_time: '2019-10-15',
-          viewed: 666,
-          image: 'http://www.zbboke.com/uploads/161221/1-16122115113S14.jpg',
-          url: 'https://github.com/smokyfog'
-        },
-        {
-          title: '用SVG画出拼图块，并实现拼图功能，请收下我的膝盖',
-          desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
-          owner: '闫强',
-          field: '技术 前端开发 js',
-          create_time: '2019-10-14',
-          viewed: 888,
-          image: 'http://www.zbboke.com/uploads/allimg/180626/1-1P626192T9222-lp.png',
-          url: 'https://github.com/smokyfog'
-        },
-        {
-          title: '运算符的作用以及用法的笔记',
-          desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
-          owner: '闫强',
-          field: '技术 前端开发 js',
-          create_time: '2019-10-16',
-          viewed: 999,
-          image: 'http://www.zbboke.com/uploads/170930/1-1F93009532O46.jpg',
-          url: 'https://github.com/smokyfog'
-        }
-      ]
+      // list: [
+      //   {
+      //     title: '运算符的作用以及用法的笔记',
+      //     desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
+      //     owner: '闫强',
+      //     field: '技术 前端开发 js',
+      //     create_time: '2019-10-16',
+      //     viewed: 999,
+      //     image: 'http://jxhx2.yangqq.com/skin/jxhx/images/4.jpg',
+      //     url: 'https://github.com/smokyfog'
+      //   },
+      //   {
+      //     title: 'dedecms图片集调用代码',
+      //     desc: `重点要注意：dede:fieldname='imgurls'不能二次使用，如果二次使用会自动使用下面的样式，所以大家一定要注意这一点...`,
+      //     owner: '闫强',
+      //     field: '技术 前端开发 js',
+      //     create_time: '2019-10-15',
+      //     viewed: 666,
+      //     image: 'http://www.zbboke.com/uploads/161221/1-16122115113S14.jpg',
+      //     url: 'https://github.com/smokyfog'
+      //   },
+      //   {
+      //     title: '用SVG画出拼图块，并实现拼图功能，请收下我的膝盖',
+      //     desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
+      //     owner: '闫强',
+      //     field: '技术 前端开发 js',
+      //     create_time: '2019-10-14',
+      //     viewed: 888,
+      //     image: 'http://www.zbboke.com/uploads/allimg/180626/1-1P626192T9222-lp.png',
+      //     url: 'https://github.com/smokyfog'
+      //   },
+      //   {
+      //     title: '运算符的作用以及用法的笔记',
+      //     desc: '什么是变量 变量就是储存数据的空间。 变量的规范命名： 1.字下美人其后数 2.不可以使用关键词 3.不可以重复定义 4.首字母小写，其后首字母大写，还要见名知意。 变量的步骤： 先声...',
+      //     owner: '闫强',
+      //     field: '技术 前端开发 js',
+      //     create_time: '2019-10-16',
+      //     viewed: 999,
+      //     image: 'http://www.zbboke.com/uploads/170930/1-1F93009532O46.jpg',
+      //     url: 'https://github.com/smokyfog'
+      //   }
+      // ]
     }
   }
 };

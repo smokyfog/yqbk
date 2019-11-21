@@ -11,25 +11,34 @@
         <p>现居： 北京市-顺义区</p>
         <p>Email： yanqiang_main@163.com</p>
         <div class="contact">
+          <div class="pay_img_box" v-show="is_show_wx">
+            <div class="img_box">
+              <img src="/img/Wechat.jpeg" alt="">
+            </div>
+          </div>
           <ul class="contact_box">
             <li>
-              <a href="">
+              <a href="/">
                 <span class="iconfont iconfl-jia"></span>
               </a>
             </li>
             <li>
-              <a href="">
-                <span class="iconfont iconqq"></span>
+              <a target="_blank" href="https://github.com/smokyfog">
+                <span class="iconfont icongithub"></span>
               </a>
             </li>
             <li>
-              <a href="">
+              <a
+                href="javascript:;"
+                @mouseover="is_show_wx = true"
+                @mouseout="is_show_wx = false"
+              >
                 <span class="iconfont iconweixin5"></span>
               </a>
             </li>
             <li>
-              <a href="">
-                <span class="iconfont iconweibo2"></span>
+              <a href="mailto:yanqiang_main@163.com">
+                <span class="iconfont iconyouxiang2"></span>
               </a>
             </li>
           </ul>
@@ -43,7 +52,7 @@
 export default {
   data() {
     return {
-
+      is_show_wx: false
     }
   }
 };
@@ -68,8 +77,30 @@ export default {
           color: rgb(58, 58, 58);
         }
         .contact {
+          position: relative;
           padding: 0 20px 0 0;
           height: 60px;
+          .pay_img_box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            bottom: 60px;
+            left: 50px;
+            padding: 10px;
+            background: #fff;
+            transition: all 0.6s;
+            box-shadow: -1px 1px 16px 3px rgba(0, 0, 0, 0.1);
+            .img_box {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              img {
+                max-width: 100%;
+                max-height: 100%;
+              }
+            }
+          }
           // margin-top: 5px;
         }
         .contact_box {

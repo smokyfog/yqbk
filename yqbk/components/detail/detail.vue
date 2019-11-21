@@ -8,11 +8,11 @@
         <div class="article_infos">
           <span>
             <i class="fa fa-user"></i>
-            <span>{{ data.owner }}</span>
+            <span>{{ detail.owner }}</span>
           </span>
           <span>
             <i class="fa fa-mortar-board"></i>
-            <span>{{ data.field }}</span>
+            <span>{{ detail.field || '未分类' }}</span>
           </span>
           <span>
             <i class="fa fa-eye"></i>
@@ -37,8 +37,20 @@
             >
               顶一下（{{ detail.likeCount }}）
             </div>
-            <div class="admire">
+            <div 
+              class="admire"
+              @mouseover="is_show_admire = true"
+              @mouseout="is_show_admire = false"
+            >
               赏
+              <div class="pay_img_box" v-show="is_show_admire">
+                <p>谢谢您的支持！</p>
+                <p>您的鼓励是我前行的动力！</p>
+                <div class="img_box">
+                  <img src="/img/zfb.jpeg" alt="">
+                  <img src="/img/wx.jpeg" alt="">
+                </div>
+              </div>
             </div>
             <div class="belittling"
               :class="{ 'active': isdislike }"
@@ -91,7 +103,8 @@ export default {
         url: '',
       },
       islike: false,
-      isdislike: false
+      isdislike: false,
+      is_show_admire: false
     };
   },
   mounted() {
@@ -254,6 +267,30 @@ export default {
             // position: absolute;
             // top: -7px;
             width: 50px;
+            .pay_img_box {
+              font-family: cursive;
+              position: absolute;
+              bottom: 60px;
+              left: -200px;
+              width: 500px;
+              height: 320px;
+              padding: 20px;
+              color: #dc203b;
+              background: #fff;
+              transition: all 0.6s;
+              box-shadow: -1px 1px 16px 3px rgba(0, 0, 0, 0.1);
+              .img_box {
+                margin-top: 20px;
+                background: #fff;
+                max-width: 100%;
+                max-height: 100%;
+                display: flex;
+                justify-content: space-around;
+                img {
+                  width: 40%;
+                }
+              }
+            }
           }
           .active {
             background: #969696

@@ -8,13 +8,13 @@
             <el-breadcrumb-item>详情页</el-breadcrumb-item>
           </breadcrumb>
           <Detail :detail="detail" />
-          <footer-recom />
+          <footer-recom :list="recommendlist"/>
           <article-comments />
         </div>
       </el-col>
       <el-col :span="6">
         <div class="container_right">
-          <side-list :comments="commentslist"/>
+          <side-list :comments="commentslist">评论排行</side-list>
           <Link />
         </div>
       </el-col>
@@ -51,7 +51,8 @@ export default {
         }
       ],
       detail: {},
-      commentslist: []
+      commentslist: [],
+      recommendlist: []
     }
   },
   components: {
@@ -88,16 +89,21 @@ export default {
       '/api/article/get_rank_list',
       {
         params: {
-          page_size: 8, 
-          type: 'comments',
+          page_size: 12, 
+          type: 'random',
           order: -1
         }
       }
     ).catch(err => {
       datas.commentslist = []
+      datas.recommendlist = []
     })
     if (commentslist && commentslist.data && commentslist.data.code === 0) {
-      datas.commentslist = commentslist.data.data
+      if (Array.isArray(commentslist.data.data)) {
+        datas.commentslist = commentslist.data.data.slice(0, 8)
+        datas.recommendlist = commentslist.data.data.slice(-4)
+      }
+      
     }
     return datas
   }

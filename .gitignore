@@ -5,6 +5,4 @@ node_modules/
 **/comm.js
 */comm.js
 comm.js
-.nuxt/
-**/.nuxt/
-**/\.nuxt/
+.nuxt

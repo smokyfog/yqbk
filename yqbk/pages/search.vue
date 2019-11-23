@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import comm from '~/static/comm.js'
 import Hot from '~/components/index/hotRecommended.vue'
 import Article from '~/components/notes/articleList.vue'
 import Link from '~/components/index/friendlyLink.vue'

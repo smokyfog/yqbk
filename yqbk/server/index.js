@@ -47,7 +47,6 @@ app.use(koaBody({
 async function start () {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config)
-  console.log(process.env.HOST)
   const {
     host = process.env.HOST || '0.0.0.0',
     port = process.env.PORT || 3000

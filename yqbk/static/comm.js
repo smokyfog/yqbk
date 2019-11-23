@@ -1,6 +1,7 @@
+const url = 'http://localhost'
 const comm = {
-  baseUrl: 'http://localhost:8001',
-  base: 'http://localhost:3000'
+  baseUrl: url + ':8001',
+  base: url + ':3000'
 }
 
 export default comm

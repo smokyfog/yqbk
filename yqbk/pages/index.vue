@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import comm from '~/static/comm.js'
 import Hot from '~/components/index/hotRecommended.vue'
 import Article from '~/components/index/articleList.vue'
 import Link from '~/components/index/friendlyLink.vue'
@@ -74,7 +75,7 @@ export default {
     }
     // 获取热门推荐
     let hot = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 6, 
@@ -90,7 +91,7 @@ export default {
     }
     // 获取文章article
     let article = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 10, 
@@ -106,7 +107,7 @@ export default {
     }
     // 获取最热排行
     let hotRank = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 5, 
@@ -122,7 +123,7 @@ export default {
     }
     // 获取最新排行
     let newRank = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 5, 
@@ -138,7 +139,7 @@ export default {
     }
     // 获取最多评论排行
     let commentslist = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 8, 

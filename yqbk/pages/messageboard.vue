@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import comm from '~/static/comm.js'
 import Link from '~/components/index/friendlyLink.vue'
 import sideList from '~/components/layout/sideList.vue'
 import leaveWords from '~/components/comment/leaveWords.vue'
@@ -35,7 +36,7 @@ export default {
     let datas = {}
     // 获取最多评论排行
     let randomlist = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 8, 

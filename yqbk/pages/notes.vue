@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import comm from '~/static/comm.js'
 import Hot from '~/components/index/hotRecommended.vue'
 import Article from '~/components/notes/articleList.vue'
 import Link from '~/components/index/friendlyLink.vue'
@@ -62,10 +63,12 @@ export default {
       type: 1,
     }
     let datas = {}
-    let { data } = await ctx.$axios.get('/api/article/get_article_list', 
-    {
-      params: param
-    })
+    let { data } = await ctx.$axios.get(
+      comm.base + '/api/article/get_article_list', 
+      {
+        params: param
+      }
+    )
     if (data && data.code === 0) {
       datas.articlelist = data.data
       datas.total = data.total
@@ -73,7 +76,7 @@ export default {
     
     // 获取最多评论排行
     let newslist = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 8, 

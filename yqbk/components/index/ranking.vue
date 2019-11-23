@@ -56,7 +56,7 @@ export default {
       if (Array.isArray(val)) {
         return ''
       }
-      if (val.length > 15) {
+      if (Array.isArray(val) && val.length > 15) {
         return val.slice(0, 15) + '...'
       } else {
         return val

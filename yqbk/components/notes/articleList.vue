@@ -59,6 +59,7 @@
 </template>
  
  <script>
+ import comm from '~/static/comm.js'
 import axios from 'axios'
 export default {
   props : {
@@ -117,7 +118,8 @@ export default {
       if (this.keywords) {
         params.search_title = this.keywords
       }
-      const { data } = await axios.get('/api/article/get_article_list',{
+      const { data } = await axios.get(
+        comm.base + '/api/article/get_article_list',{
         params
       })
       .catch(err => {

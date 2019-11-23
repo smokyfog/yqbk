@@ -75,10 +75,12 @@ export default {
       param.search_title = ctx.route.query.keywords
     }
     let datas = {}
-    let { data } = await ctx.$axios.get('/api/article/get_article_list', 
-    {
-      params: param
-    })
+    let { data } = await ctx.$axios.get(
+      comm.base + '/api/article/get_article_list', 
+      {
+        params: param
+      }
+    )
     if (data && data.code === 0) {
       datas.articlelist = data.data
       datas.total = data.total
@@ -86,7 +88,7 @@ export default {
 
     // 获取最多评论排行
     let randomlist = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 8, 

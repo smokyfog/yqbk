@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import comm from '~/static/comm.js'
 import Hot from '~/components/index/hotRecommended.vue'
 import Detail from '~/components/detail/detail.vue'
 import footerRecom from '~/components/detail/footerRecom.vue'
@@ -74,7 +75,8 @@ export default {
   async asyncData(ctx) {
     const id = ctx.query.id
     let datas = {}
-    let { data } = await ctx.$axios.get('/api/article/get_article_detail', 
+    let { data } = await ctx.$axios.get(
+    comm.base + '/api/article/get_article_detail', 
     {
       params : {
         id
@@ -86,7 +88,7 @@ export default {
 
     // 获取最多评论排行
     let commentslist = await ctx.$axios.get(
-      '/api/article/get_rank_list',
+      comm.base + '/api/article/get_rank_list',
       {
         params: {
           page_size: 12, 

@@ -66,7 +66,8 @@ export default {
   async asyncData(ctx) {
     let datas = {}
     // 获取banner信息
-    let banner = await ctx.$axios.get('/api/banner/list')
+    let banner = await ctx.$axios.get(
+      comm.base + '/api/banner/list')
       .catch(err => {
         datas.banner = []
       })

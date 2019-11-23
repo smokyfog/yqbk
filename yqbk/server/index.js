@@ -2,7 +2,7 @@ const Koa = require('koa')
 const consola = require('consola')
 const session = require('koa-session')
 const { Nuxt, Builder } = require('nuxt')
-
+const cors = require('koa2-cors')
 const app = new Koa()
 const koaBody = require('koa-body')
 // Import and Set Nuxt.js options
@@ -21,7 +21,19 @@ const CONFIG = {
   renew: false
 }
 app.use(session(CONFIG, app))
-
+app.use(cors({
+  origin (ctx) {
+    if (ctx.url === '/test') {
+      return false
+    }
+    return ctx.header.origin
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+}))
 const comments = require('./interface/comments')
 config.dev = app.env !== 'production'
 // koaBody 用于上传
@@ -35,7 +47,7 @@ app.use(koaBody({
 async function start () {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config)
-
+  console.log(process.env.HOST)
   const {
     host = process.env.HOST || '0.0.0.0',
     port = process.env.PORT || 3000
@@ -60,9 +72,9 @@ async function start () {
     nuxt.render(ctx.req, ctx.res)
   })
 
-  app.listen(port, host)
+  app.listen(3000, '0.0.0.0')
   consola.ready({
-    message: `Server listening on http://${host}:${port}`,
+    message: `Server listening on http://${host}:${port} 0.0.0.0`,
     badge: true
   })
 }

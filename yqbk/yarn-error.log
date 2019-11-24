@@ -30,7 +30,7 @@ npm manifest:
   {
     "name": "yqbk",
     "version": "1.0.0",
-    "description": "闫强的个人博客",
+    "description": "闫强个人博客",
     "author": "smokyfog",
     "private": true,
     "scripts": {

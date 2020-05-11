@@ -30,7 +30,7 @@
     "nuxt": "^2.0.0",
     "pm2": "^4.1.2",
     "sass-loader": "^8.0.0",
-    "tinymce": "^5.1.0",
+    "tinymce": "^5.2.2",
     "view-design": "^4.0.1"
   },
   "devDependencies": {

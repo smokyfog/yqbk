@@ -44,17 +44,6 @@ import myCard from '~/components/index/myCard.vue'
 import sideList from '~/components/index/sideList.vue'
 
 export default {
-  data() {
-    return {
-      banner:[],
-      hot: [],
-      article: [],
-      hotRank: [],
-      newRank: [],
-      comments: [],
-      commentslist: []
-    }
-  },
   components: {
     Hot,
     Link,
@@ -63,7 +52,18 @@ export default {
     myCard,
     sideList
   },
-  async asyncData(ctx) {
+  data () {
+    return {
+      banner: [],
+      hot: [],
+      article: [],
+      hotRank: [],
+      newRank: [],
+      comments: [],
+      commentslist: []
+    }
+  },
+  async asyncData (ctx) {
     let datas = {}
     // 获取banner信息
     let banner = await ctx.$axios.get(
@@ -176,7 +176,6 @@ export default {
     .el-carousel__item:nth-child(2n) {
       background-color: #99a9bf;
     }
-    
     .el-carousel__item:nth-child(2n+1) {
       background-color: #d3dce6;
     }

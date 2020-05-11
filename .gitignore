@@ -2,8 +2,6 @@ node_modules/
 */node_modules/
 *node_modules/
 *node_modules*
-**/comm.js
-*/comm.js
-comm.js
-.nuxt
-yqbk/.nuxt
+yqbk_api/model/db.js
+db.js
+*db.js

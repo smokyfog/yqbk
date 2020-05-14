@@ -69,6 +69,9 @@ export default {
             text-align: center;
             top: 50%;
             left: 50%;
+            height: 30px;
+            line-height: 30px;
+            background: #00000061;
             transform: translate(-50%, -50%)
           }
           img {

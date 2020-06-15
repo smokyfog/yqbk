@@ -3,3 +3,4 @@
 
 #博客地址
 http://bk.yanqianger.xyz
+http://www.smokyfog.cn
